@@ -22,7 +22,7 @@ export interface PendingFollowUpInvoice {
   invoice_number: number;
   amount: string | number;
   due_date: string;
-  client: { name: string } | null;
+  client: { name: string; email?: string } | null;
 }
 
 /** A single pending-approval follow-up as returned by `GET /follow-ups` (Req 9.2). */
@@ -33,12 +33,13 @@ export interface PendingFollowUp {
   content: string;
   status: string;
   drafted_at: string;
+  sent_at?: string | null;
   /** 1st, 2nd, 3rd... follow-up drafted for this invoice (Feature 3). */
   follow_up_number: number | null;
   invoice: PendingFollowUpInvoice | null;
 }
 
-/** Response body of `GET /follow-ups?status=pending_approval`. */
+/** Response body of `GET /follow-ups?status=pending_approval` or `GET /follow-ups?status=sent`. */
 export interface PendingFollowUpsResponse {
   follow_ups: PendingFollowUp[];
 }

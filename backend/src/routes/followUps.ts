@@ -87,7 +87,7 @@ const DEFAULT_FROM_EMAIL = 'onboarding@resend.dev';
  */
 const FOLLOW_UP_LIST_COLUMNS =
   'id, invoice_id, tier, content, status, drafted_at, follow_up_number, ' +
-  'invoice:invoices(invoice_number, amount, due_date, client:clients(name))';
+  'invoice:invoices(invoice_number, amount, due_date, client:clients(name, email))';
 
 /**
  * Columns returned when reading/writing a single follow-up for the mutating
@@ -140,20 +140,30 @@ function sendNotPending(res: Response, status: string): void {
  */
 const handleList: RequestHandler = async (req: Request, res: Response): Promise<void> => {
   const statusParam = req.query.status;
-  // Only a single "pending_approval" filter is supported here (Req 9.2).
-  if (statusParam !== undefined && statusParam !== PENDING_APPROVAL) {
+  const SUPPORTED_STATUSES = [PENDING_APPROVAL, 'sent'] as const;
+
+  if (statusParam !== undefined && !SUPPORTED_STATUSES.includes(statusParam as typeof SUPPORTED_STATUSES[number])) {
     res.status(400).json({
-      error: `Unsupported status filter. Only "${PENDING_APPROVAL}" is supported.`,
+      error: `Unsupported status filter. Supported values: ${SUPPORTED_STATUSES.join(', ')}.`,
       field: 'status',
     });
     return;
   }
 
+  const status = (statusParam as string) || PENDING_APPROVAL;
+
+  const columns = status === 'sent'
+    ? 'id, invoice_id, tier, content, status, drafted_at, sent_at, follow_up_number, ' +
+      'invoice:invoices(invoice_number, amount, due_date, client:clients(name, email))'
+    : FOLLOW_UP_LIST_COLUMNS;
+
+  const orderCol = status === 'sent' ? 'sent_at' : 'drafted_at';
+
   const { data, error } = await req.supabase
     .from(FOLLOW_UPS_TABLE)
-    .select(FOLLOW_UP_LIST_COLUMNS)
-    .eq('status', PENDING_APPROVAL)
-    .order('drafted_at', { ascending: false });
+    .select(columns)
+    .eq('status', status)
+    .order(orderCol, { ascending: false });
 
   if (error) {
     sendServerError(res);
@@ -332,9 +342,14 @@ function createApproveHandler(deps: {
     // Deliver within the 30s confirmation window (Req 9.6). The Email_Service
     // resolves with an explicit delivery signal rather than throwing.
     const emailService = await deps.getEmailService();
-    const subject = followUp.invoice
-      ? `Reminder: Invoice #${followUp.invoice.invoice_number}`
-      : 'Payment reminder';
+    const customSubject = typeof (req.body ?? {}).subject === 'string'
+      ? (req.body as { subject: string }).subject.trim()
+      : '';
+    const subject = customSubject.length > 0
+      ? customSubject
+      : followUp.invoice
+        ? `Reminder: Invoice #${followUp.invoice.invoice_number}`
+        : 'Payment reminder';
     const delivery = await emailService.sendEmail({
       from: deps.fromEmail,
       to: client.email,
@@ -368,13 +383,13 @@ function createApproveHandler(deps: {
     }
 
     // Record exactly one follow-up-sent activity event (Req 9.8), carrying the
-    // tier and follow-up number for the invoice timeline. user_id is supplied
-    // explicitly to satisfy the RLS with-check on insert.
+    // tier, follow-up number, and subject for the invoice timeline. user_id is
+    // supplied explicitly to satisfy the RLS with-check on insert.
     const event = await req.supabase.from(ACTIVITY_EVENTS_TABLE).insert({
       user_id: req.userId,
       invoice_id: followUp.invoice_id,
       type: 'follow_up_sent',
-      metadata: { tier: followUp.tier, follow_up_number: followUp.follow_up_number },
+      metadata: { tier: followUp.tier, follow_up_number: followUp.follow_up_number, subject },
     });
 
     if (event.error) {

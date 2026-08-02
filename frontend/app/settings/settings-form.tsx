@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Card,
   CardContent,
@@ -142,7 +143,52 @@ export function SettingsForm() {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading settings…</p>;
+    return (
+      <div className="max-w-2xl space-y-6">
+        <Card>
+          <CardHeader className="space-y-2">
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-4 w-64" />
+          </CardHeader>
+          <CardContent className="flex items-center gap-4">
+            <Skeleton className="h-16 w-16 rounded-md" />
+            <Skeleton className="h-8 w-48" />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="space-y-2">
+            <Skeleton className="h-5 w-40" />
+            <Skeleton className="h-4 w-72" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="space-y-2">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-9 w-full" />
+              </div>
+            ))}
+          </CardContent>
+
+          <CardHeader className="space-y-2 pt-0">
+            <Skeleton className="h-5 w-36" />
+            <Skeleton className="h-4 w-80" />
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="space-y-2">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-9 w-full" />
+              </div>
+            ))}
+          </CardContent>
+
+          <CardFooter>
+            <Skeleton className="h-9 w-32" />
+          </CardFooter>
+        </Card>
+      </div>
+    );
   }
 
   return (

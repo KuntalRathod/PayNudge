@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { apiGet, apiPost } from '@/lib/api/client';
 import type {
   ClientListResponse,
@@ -110,7 +111,7 @@ export function InvoiceForm() {
           <div className="space-y-2">
             <Label htmlFor="clientId">Client</Label>
             {clients === null ? (
-              <p className="text-sm text-muted-foreground">Loading clients…</p>
+              <Skeleton className="h-10 w-full" />
             ) : hasClients ? (
               <select
                 id="clientId"

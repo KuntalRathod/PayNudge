@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { apiDelete, apiDownload, apiGet, apiPost, type ApiResult } from '@/lib/api/client';
 import { formatAmount, formatDate } from '../format';
 import { StatusBadge } from '../status-badge';
@@ -51,6 +52,7 @@ export function InvoiceDetailView({ invoiceId }: { invoiceId: string }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [markPaidOpen, setMarkPaidOpen] = useState(false);
   const [timelineRefreshKey, setTimelineRefreshKey] = useState(0);
+  const [followUpCount, setFollowUpCount] = useState<number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -136,7 +138,49 @@ export function InvoiceDetailView({ invoiceId }: { invoiceId: string }) {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading invoice…</p>;
+    return (
+      <div className="w-full max-w-2xl space-y-6">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between gap-4">
+              <Skeleton className="h-6 w-40" />
+              <Skeleton className="h-5 w-16 rounded-full" />
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="space-y-1.5">
+                  <Skeleton className="h-3.5 w-20" />
+                  <Skeleton className="h-4 w-32" />
+                </div>
+              ))}
+            </dl>
+            <div className="flex flex-wrap items-center gap-3">
+              <Skeleton className="h-9 w-28" />
+              <Skeleton className="h-9 w-32" />
+              <Skeleton className="h-9 w-16" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-5 w-40" />
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6 border-l pl-6">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="space-y-2">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-4 w-48" />
+                  <Skeleton className="h-3.5 w-24" />
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (loadError || !invoice) {
@@ -162,7 +206,14 @@ export function InvoiceDetailView({ invoiceId }: { invoiceId: string }) {
         <CardHeader>
           <div className="flex items-center justify-between gap-4">
             <CardTitle>Invoice #{invoice.invoice_number}</CardTitle>
-            <StatusBadge status={invoice.status} />
+            <div className="flex items-center gap-2">
+              {followUpCount !== null && followUpCount > 0 ? (
+                <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                  {followUpCount} follow-up{followUpCount !== 1 ? 's' : ''} sent
+                </span>
+              ) : null}
+              <StatusBadge status={invoice.status} />
+            </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -270,7 +321,7 @@ export function InvoiceDetailView({ invoiceId }: { invoiceId: string }) {
         onPaid={handlePaid}
       />
 
-      <InvoiceTimeline invoiceId={invoiceId} refreshKey={timelineRefreshKey} />
+      <InvoiceTimeline invoiceId={invoiceId} refreshKey={timelineRefreshKey} onFollowUpCount={setFollowUpCount} />
     </div>
   );
 }

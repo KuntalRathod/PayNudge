@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { apiPost, apiPut, type ApiResult } from '@/lib/api/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useConfetti } from '@/hooks/use-confetti';
 import {
   formatAmount,
   formatDate,
@@ -23,23 +26,10 @@ const TONE_OPTIONS: ReadonlyArray<{ value: EscalationTier; label: string }> = [
   { value: 'final_notice', label: 'Final Notice' },
 ];
 
-/**
- * A single pending follow-up (Req 9.2), with inline actions to edit its drafted
- * content (Req 9.3), regenerate it with a different tone (Feature 3), approve
- * and send it (Req 9.5), or discard it (Req 9.10).
- *
- * The card owns all per-item interaction state (edit mode, the draft textarea,
- * a busy flag, and the last action error) so one failing item never blocks the
- * others. Every backend call resolves to an {@link ApiResult}; a non-OK result
- * surfaces the backend message inline via `role="alert"`.
- *
- * On a successful approve or discard the follow-up leaves the pending list, so
- * the card calls {@link onResolved} to have the parent drop it. A successful
- * edit or regenerate keeps the item pending and reports the new content (and,
- * for regenerate, the new tier) via {@link onEdited}.
- */
 export interface FollowUpCardProps {
   followUp: PendingFollowUp;
+  /** The sender's business name from settings profile. */
+  senderName?: string;
   /** Called after the item transitions out of pending (approved or discarded). */
   onResolved: (id: string, outcome: 'approved' | 'discarded') => void;
   /** Called after a successful content edit or tone regeneration. */
@@ -48,17 +38,23 @@ export interface FollowUpCardProps {
 
 type BusyAction = 'approve' | 'discard' | 'save' | 'regenerate' | null;
 
-export function FollowUpCard({ followUp, onResolved, onEdited }: FollowUpCardProps) {
+export function FollowUpCard({ followUp, senderName, onResolved, onEdited }: FollowUpCardProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(followUp.content);
   const [busy, setBusy] = useState<BusyAction>(null);
   const [error, setError] = useState<string | null>(null);
   const [toneMenuOpen, setToneMenuOpen] = useState(false);
+  const fireConfetti = useConfetti();
 
   const invoice = followUp.invoice;
   const clientName = invoice?.client?.name ?? 'Unknown client';
-  const disabled = busy !== null;
+  const clientEmail = invoice?.client?.email ?? '';
+  const defaultSubject = invoice
+    ? `Reminder: Invoice #${invoice.invoice_number}`
+    : 'Payment reminder';
+  const [subject, setSubject] = useState(defaultSubject);
 
+  const disabled = busy !== null;
   const trimmedEmpty = draft.length === 0;
   const tooLong = draft.length > MAX_CONTENT_LENGTH;
 
@@ -79,10 +75,7 @@ export function FollowUpCard({ followUp, onResolved, onEdited }: FollowUpCardPro
   }
 
   async function saveEdit(): Promise<void> {
-    // Client-side guard mirroring Req 9.3/9.4 so an invalid edit is not sent.
-    if (trimmedEmpty || tooLong) {
-      return;
-    }
+    if (trimmedEmpty || tooLong) return;
     setBusy('save');
     setError(null);
     const result = await apiPut<FollowUpActionResponse>(
@@ -119,12 +112,19 @@ export function FollowUpCard({ followUp, onResolved, onEdited }: FollowUpCardPro
   async function approve(): Promise<void> {
     setBusy('approve');
     setError(null);
-    const result = await apiPost<FollowUpActionResponse>(`/follow-ups/${followUp.id}/approve`);
+    const result = await apiPost<FollowUpActionResponse>(
+      `/follow-ups/${followUp.id}/approve`,
+      { subject },
+    );
     setBusy(null);
     if (!result.ok) {
       reportError(result);
       return;
     }
+    fireConfetti();
+    toast.success('Follow-up sent successfully ✉️', {
+      description: `Email sent to ${clientName}.`,
+    });
     onResolved(followUp.id, 'approved');
   }
 
@@ -168,37 +168,62 @@ export function FollowUpCard({ followUp, onResolved, onEdited }: FollowUpCardPro
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-2">
-        {editing ? (
-          <div className="space-y-2">
-            <label htmlFor={`content-${followUp.id}`} className="text-sm font-medium">
-              Edit follow-up content
-            </label>
-            <Textarea
-              id={`content-${followUp.id}`}
-              className="min-h-40"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              disabled={disabled}
-              aria-invalid={trimmedEmpty || tooLong}
-            />
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>
-                {draft.length.toLocaleString()} / {MAX_CONTENT_LENGTH.toLocaleString()} characters
-              </span>
-              {trimmedEmpty ? (
-                <span className="text-destructive">Content cannot be empty.</span>
-              ) : null}
-              {tooLong ? (
-                <span className="text-destructive">
-                  Content exceeds the {MAX_CONTENT_LENGTH.toLocaleString()} character limit.
-                </span>
-              ) : null}
-            </div>
+      <CardContent className="space-y-3">
+        {/* Email preview header */}
+        <div className="rounded-lg border bg-muted/30 p-4 space-y-2.5">
+          <div className="flex items-start gap-2 text-sm">
+            <span className="w-16 shrink-0 font-medium text-muted-foreground">From:</span>
+            <span className="text-foreground">{senderName || 'Your Business'}</span>
           </div>
-        ) : (
-          <p className="whitespace-pre-wrap text-sm text-foreground">{followUp.content}</p>
-        )}
+          <div className="flex items-start gap-2 text-sm">
+            <span className="w-16 shrink-0 font-medium text-muted-foreground">To:</span>
+            <span className="text-foreground">{clientEmail || clientName}</span>
+          </div>
+          <div className="flex items-start gap-2 text-sm">
+            <span className="w-16 shrink-0 font-medium text-muted-foreground">Subject:</span>
+            <Input
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              disabled={disabled}
+              className="h-7 flex-1 border-dashed bg-background text-sm"
+              aria-label="Email subject line"
+            />
+          </div>
+        </div>
+
+        {/* Email body */}
+        <div className="rounded-lg border bg-card p-4">
+          {editing ? (
+            <div className="space-y-2">
+              <label htmlFor={`content-${followUp.id}`} className="text-sm font-medium">
+                Edit email body
+              </label>
+              <Textarea
+                id={`content-${followUp.id}`}
+                className="min-h-40"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                disabled={disabled}
+                aria-invalid={trimmedEmpty || tooLong}
+              />
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>
+                  {draft.length.toLocaleString()} / {MAX_CONTENT_LENGTH.toLocaleString()} characters
+                </span>
+                {trimmedEmpty ? (
+                  <span className="text-destructive">Content cannot be empty.</span>
+                ) : null}
+                {tooLong ? (
+                  <span className="text-destructive">
+                    Content exceeds the {MAX_CONTENT_LENGTH.toLocaleString()} character limit.
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <p className="whitespace-pre-wrap text-sm text-foreground">{followUp.content}</p>
+          )}
+        </div>
 
         {error ? (
           <p role="alert" className="text-sm text-destructive">

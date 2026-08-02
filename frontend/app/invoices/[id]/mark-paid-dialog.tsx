@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -13,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { useConfetti } from '@/hooks/use-confetti';
 import { apiPost, type ApiResult } from '@/lib/api/client';
 import type { InvoiceResponse } from '../types';
 
@@ -43,6 +45,7 @@ export function MarkPaidDialog({
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const fireConfetti = useConfetti();
 
   async function handleConfirm() {
     setSaving(true);
@@ -56,6 +59,10 @@ export function MarkPaidDialog({
       setError(result.error);
       return;
     }
+    fireConfetti();
+    toast.success('Invoice marked as paid 🎉', {
+      description: 'Payment recorded. No further follow-ups will be sent.',
+    });
     onPaid(result);
     onOpenChange(false);
     setNote('');

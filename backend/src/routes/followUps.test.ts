@@ -405,11 +405,18 @@ describe('GET /follow-ups?status=pending_approval', () => {
     expect(ids).toEqual([mine.id]);
   });
 
-  it('rejects an unsupported status filter with 400 (9.2 scope)', async () => {
-    const res = await fetch(`${baseUrl}/follow-ups?status=sent`);
+  it('rejects an unsupported status filter with 400', async () => {
+    const res = await fetch(`${baseUrl}/follow-ups?status=discarded`);
     expect(res.status).toBe(400);
     const body = (await res.json()) as { field: string };
     expect(body.field).toBe('status');
+  });
+
+  it('lists sent follow-ups when status=sent', async () => {
+    const res = await fetch(`${baseUrl}/follow-ups?status=sent`);
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { follow_ups: unknown[] };
+    expect(Array.isArray(body.follow_ups)).toBe(true);
   });
 });
 

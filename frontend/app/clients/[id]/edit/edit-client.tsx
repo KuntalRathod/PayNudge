@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { apiGet } from '@/lib/api/client';
 import { buttonVariants } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ClientForm } from '../../client-form';
 import type { Client, ClientResponse } from '../../types';
 
@@ -41,7 +42,19 @@ export function EditClient({ clientId }: { clientId: string }) {
   }, [clientId]);
 
   if (state.status === 'loading') {
-    return <p className="text-sm text-muted-foreground">Loading client…</p>;
+    return (
+      <div className="space-y-4">
+        <Skeleton className="h-5 w-32" />
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div key={index} className="space-y-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-9 w-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   if (state.status === 'error') {

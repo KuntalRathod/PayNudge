@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { apiGet } from '@/lib/api/client';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { SkeletonStatCard, SkeletonTableRow } from '@/components/ui/skeleton-card';
 import { StatCard } from '@/app/dashboard/stat-card';
 import { StatusBadge } from '@/app/invoices/status-badge';
 import type { InvoiceStatus } from '@/app/invoices/types';
@@ -51,7 +53,52 @@ export function ClientDetail({ clientId }: { clientId: string }) {
   }, [load]);
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading client…</p>;
+    return (
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-40" />
+            <Skeleton className="h-4 w-48" />
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-9 w-16" />
+            <Skeleton className="h-9 w-28" />
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <SkeletonStatCard key={index} hint={index === 2} />
+          ))}
+        </div>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-5 w-24" />
+          </CardHeader>
+          <CardContent className="p-0">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <th key={index} className="px-4 py-3 text-left">
+                      <Skeleton className="h-3.5 w-16" />
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <SkeletonTableRow
+                    key={index}
+                    columns={5}
+                    columnWidths={['w-16', 'w-48', 'w-20', 'w-24', 'w-20']}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (error || !data) {

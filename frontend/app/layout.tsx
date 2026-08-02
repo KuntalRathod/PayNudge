@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
            */}
           <NextTopLoader color="#0f172a" height={3} showSpinner={false} shadow={false} />
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

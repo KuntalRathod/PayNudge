@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { apiGet } from '@/lib/api/client';
 import { Nav } from '@/components/nav';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 /**
  * Client history view (Req 11.3).
@@ -114,7 +115,21 @@ export default function ClientHistoryPage({ params }: { params: { id: string } }
           </Link>
         </div>
 
-        {loading ? <p className="text-sm text-muted-foreground">Loading history…</p> : null}
+        {loading ? (
+          <div className="space-y-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <Skeleton className="h-5 w-40" />
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : null}
 
         {error ? (
           <div

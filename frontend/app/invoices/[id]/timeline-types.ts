@@ -23,18 +23,18 @@ export interface TimelineEvent {
 }
 
 export interface TimelineResponse {
-  invoice: { invoice_number: number; status: string };
+  invoice: { invoice_number: number; status: string; created_at?: string };
   timeline: TimelineEvent[];
 }
 
 function tierLabel(tier: unknown): string {
   switch (tier) {
     case 'polite':
-      return 'polite';
+      return 'Polite';
     case 'firm':
-      return 'firm';
+      return 'Firm';
     case 'final_notice':
-      return 'final notice';
+      return 'Final Notice';
     default:
       return typeof tier === 'string' ? tier : '';
   }
@@ -81,6 +81,14 @@ export function timelineEventTitle(event: TimelineEvent): string {
 /** Short supporting description for a timeline event, if any. */
 export function timelineEventDescription(event: TimelineEvent): string | null {
   const meta = event.metadata ?? {};
+
+  // Follow-up events: show subject line if available
+  if (event.type === 'follow_up_sent' || event.type === 'follow_up_drafted') {
+    if (typeof meta.subject === 'string' && meta.subject.trim()) {
+      return `Subject: ${meta.subject.trim()}`;
+    }
+  }
+
   if (event.type === 'payment_received' && typeof meta.note === 'string' && meta.note.trim()) {
     return `Note: ${meta.note.trim()}`;
   }
