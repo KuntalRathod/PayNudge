@@ -1,0 +1,19 @@
+{
+  "name": "paynudge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Create invoices, track payments, and let AI draft follow-ups for overdue invoices — with you approving every message.",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "test": "npm run test --workspace backend",
+    "lint": "npm run lint --workspace backend && npm run lint --workspace frontend",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

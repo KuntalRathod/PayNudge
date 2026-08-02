@@ -1,0 +1,9 @@
+node_modules/
+.kiro/
+dist/
+build/
+coverage/
+frontend/.next/
+frontend/out/
+backend/dist/
+package-lock.json
