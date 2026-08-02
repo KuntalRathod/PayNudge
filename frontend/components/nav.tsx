@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LogoutButton } from '@/components/logout-button';
+import { ModeToggle } from '@/components/mode-toggle';
 
 /**
  * Shared top navigation for authenticated views.
@@ -34,7 +35,10 @@ export function Nav() {
             ))}
           </ul>
         </div>
-        <LogoutButton />
+        <div className="flex items-center gap-2">
+          <ModeToggle />
+          <LogoutButton />
+        </div>
       </nav>
     </header>
   );

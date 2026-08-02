@@ -6,6 +6,7 @@ import { apiGet } from '@/lib/api/client';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { formatClientAmount, formatClientDate } from './format';
 import type { ClientListResponse, ClientWithStats } from './types';
@@ -59,7 +60,31 @@ export function ClientsList() {
   }, [state, search]);
 
   if (state.status === 'loading') {
-    return <p className="text-sm text-muted-foreground">Loading clients…</p>;
+    return (
+      <div className="space-y-4">
+        <Skeleton className="h-9 w-full sm:max-w-xs" />
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <li key={index}>
+              <Card className="h-full">
+                <CardHeader className="pb-3">
+                  <Skeleton className="h-4 w-28" />
+                  <Skeleton className="mt-2 h-3.5 w-36" />
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 gap-3 pt-0">
+                  {Array.from({ length: 4 }).map((_, statIndex) => (
+                    <div key={statIndex} className="space-y-1">
+                      <Skeleton className="h-3 w-16" />
+                      <Skeleton className="h-4 w-14" />
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 
   if (state.status === 'error') {

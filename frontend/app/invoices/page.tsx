@@ -7,6 +7,8 @@ import { Nav } from '@/components/nav';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
+import { SkeletonTable } from '@/components/ui/skeleton-card';
 import { apiGet } from '@/lib/api/client';
 import { cn } from '@/lib/utils';
 import { formatAmount, formatDate } from './format';
@@ -104,7 +106,17 @@ function InvoicesPageInner() {
         ) : null}
 
         {invoices === null ? (
-          <p className="text-sm text-muted-foreground">Loading invoices…</p>
+          <div className="space-y-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap gap-1.5">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Skeleton key={index} className="h-8 w-16 rounded-full" />
+                ))}
+              </div>
+              <Skeleton className="h-9 w-full sm:w-64" />
+            </div>
+            <SkeletonTable columns={5} rows={6} columnWidths={['w-16', 'w-48', 'w-20', 'w-24', 'w-20']} />
+          </div>
         ) : isEmptyAccount ? (
           <Card>
             <CardContent className="flex flex-col items-center gap-3 py-16 text-center">

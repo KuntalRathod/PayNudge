@@ -2,6 +2,9 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { SkeletonStatCard, SkeletonListItem } from '@/components/ui/skeleton-card';
 import { apiGet } from '@/lib/api/client';
 import { ActivityFeed } from './activity-feed';
 import { NeedsAttention } from './needs-attention';
@@ -61,7 +64,44 @@ export function DashboardView() {
   }, []);
 
   if (state.status === 'loading') {
-    return <p className="text-sm text-muted-foreground">Loading your dashboard…</p>;
+    return (
+      <div className="space-y-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonStatCard key={index} />
+          ))}
+        </div>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-5 w-44" />
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-2">
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between gap-4 rounded-lg border bg-background p-4"
+              >
+                <div className="space-y-2">
+                  <Skeleton className="h-7 w-10" />
+                  <Skeleton className="h-4 w-28" />
+                </div>
+                <Skeleton className="h-9 w-16" />
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-5 w-36" />
+          </CardHeader>
+          <CardContent className="divide-y">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonListItem key={index} />
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (state.status === 'error') {
