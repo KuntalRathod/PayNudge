@@ -124,7 +124,7 @@ export interface SkeletonTableProps {
 export function SkeletonTable({ columns = 4, rows = 5, columnWidths, className }: SkeletonTableProps) {
   return (
     <Card className={className}>
-      <CardContent className="p-0">
+      <CardContent className="overflow-x-auto p-0">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b">

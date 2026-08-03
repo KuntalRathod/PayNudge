@@ -175,7 +175,7 @@ function InvoicesPageInner() {
               </Card>
             ) : (
               <Card>
-                <CardContent className="p-0">
+                <CardContent className="overflow-x-auto p-0">
                   <table className="w-full text-sm">
                     <caption className="sr-only">Your invoices</caption>
                     <thead>

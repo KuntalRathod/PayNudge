@@ -74,7 +74,7 @@ export function ClientDetail({ clientId }: { clientId: string }) {
           <CardHeader>
             <Skeleton className="h-5 w-24" />
           </CardHeader>
-          <CardContent className="p-0">
+          <CardContent className="overflow-x-auto p-0">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b">
@@ -160,7 +160,7 @@ export function ClientDetail({ clientId }: { clientId: string }) {
         <CardHeader>
           <CardTitle className="text-xl">Invoices</CardTitle>
         </CardHeader>
-        <CardContent className="p-0">
+        <CardContent className="overflow-x-auto p-0">
           {invoices.length === 0 ? (
             <p className="p-6 text-sm text-muted-foreground">
               This client has no invoices yet.

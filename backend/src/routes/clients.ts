@@ -370,6 +370,95 @@ const handleUpdate: RequestHandler = async (req: Request, res: Response): Promis
 };
 
 /**
+ * POST /clients/import — bulk-create clients from a CSV-style array.
+ *
+ * Accepts `{ clients: Array<{ name, email, company? }> }`. Each entry is
+ * validated individually. Entries that pass validation are inserted; entries
+ * that fail are reported back with their row index and error. Duplicate emails
+ * (same email already owned by the user) are skipped and reported.
+ *
+ * Returns `{ imported: number, errors: Array<{ row, message }> }`.
+ */
+const handleImport: RequestHandler = async (req: Request, res: Response): Promise<void> => {
+  const body = req.body ?? {};
+  const clientsInput = body.clients;
+
+  if (!Array.isArray(clientsInput) || clientsInput.length === 0) {
+    res.status(400).json({ error: 'A non-empty "clients" array is required.', field: 'clients' });
+    return;
+  }
+
+  if (clientsInput.length > 500) {
+    res.status(400).json({ error: 'Cannot import more than 500 clients at once.', field: 'clients' });
+    return;
+  }
+
+  const errors: Array<{ row: number; message: string }> = [];
+  const validClients: Array<{ name: string; email: string; company: string | null; row: number }> = [];
+
+  for (let i = 0; i < clientsInput.length; i++) {
+    const validation = validateClient(clientsInput[i] ?? {});
+    if (!validation.ok) {
+      errors.push({ row: i + 1, message: `${validation.field}: ${validation.message}` });
+    } else {
+      validClients.push({ ...validation.value, row: i + 1 });
+    }
+  }
+
+  if (validClients.length === 0) {
+    res.status(200).json({ imported: 0, errors });
+    return;
+  }
+
+  // Check for duplicate emails within the import batch
+  const seen = new Map<string, number>();
+  const deduped: typeof validClients = [];
+  for (const client of validClients) {
+    const lowerEmail = client.email.toLowerCase();
+    if (seen.has(lowerEmail)) {
+      errors.push({ row: client.row, message: `Duplicate email in import (same as row ${seen.get(lowerEmail)}).` });
+    } else {
+      seen.set(lowerEmail, client.row);
+      deduped.push(client);
+    }
+  }
+
+  // Check for emails already owned by this user
+  const { data: existing } = await req.supabase
+    .from(CLIENTS_TABLE)
+    .select('email')
+    .in('email', deduped.map((c) => c.email));
+
+  const existingEmails = new Set((existing ?? []).map((r: { email: string }) => r.email.toLowerCase()));
+  const toInsert: Array<{ user_id: string; name: string; email: string; company: string | null }> = [];
+
+  for (const client of deduped) {
+    if (existingEmails.has(client.email.toLowerCase())) {
+      errors.push({ row: client.row, message: `Client with email "${client.email}" already exists.` });
+    } else {
+      toInsert.push({ user_id: req.userId, name: client.name, email: client.email, company: client.company });
+    }
+  }
+
+  if (toInsert.length === 0) {
+    res.status(200).json({ imported: 0, errors });
+    return;
+  }
+
+  const { data: inserted, error: insertError } = await req.supabase
+    .from(CLIENTS_TABLE)
+    .insert(toInsert)
+    .select('id');
+
+  if (insertError) {
+    sendServerError(res);
+    return;
+  }
+
+  res.status(200).json({ imported: (inserted ?? []).length, errors });
+};
+
+/**
  * Builds the Clients API router. Every route is guarded by the provided auth
  * middleware (defaults to {@link requireAuth}), which attaches `req.userId`
  * and the RLS-scoped `req.supabase` client the handlers rely on.
@@ -378,6 +467,7 @@ export function createClientsRouter(options: ClientsRouterOptions = {}): Router 
   const auth = options.authMiddleware ?? requireAuth;
   const router = Router();
 
+  router.post('/clients/import', auth, handleImport);
   router.post('/clients', auth, handleCreate);
   router.get('/clients', auth, handleList);
   router.get('/clients/:id', auth, handleGet);
