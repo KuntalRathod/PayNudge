@@ -3,6 +3,7 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { CalendarDays, List } from 'lucide-react';
 import { Nav } from '@/components/nav';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -11,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { SkeletonTable } from '@/components/ui/skeleton-card';
 import { apiGet } from '@/lib/api/client';
 import { cn } from '@/lib/utils';
+import { InvoiceCalendarView } from './calendar-view';
 import { formatAmount, formatDate } from './format';
 import { StatusBadge } from './status-badge';
 import type { InvoiceListItem, InvoiceListResponse, InvoiceStatus } from './types';
@@ -48,6 +50,7 @@ function InvoicesPageInner() {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<InvoiceStatus | 'all'>(initialFilter);
   const [search, setSearch] = useState('');
+  const [view, setView] = useState<'list' | 'calendar'>('list');
 
   const load = useCallback(async () => {
     setError(null);
@@ -87,16 +90,48 @@ function InvoicesPageInner() {
     <>
       <Nav />
       <main className="container py-8">
-        <div className="mb-6 flex items-center justify-between gap-4">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Invoices</h1>
             <p className="text-sm text-muted-foreground">
               Create, send, and track the status of your invoices.
             </p>
           </div>
-          <Link href="/invoices/new" className={buttonVariants()}>
-            New invoice
-          </Link>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center rounded-md border p-0.5">
+              <button
+                type="button"
+                onClick={() => setView('list')}
+                aria-pressed={view === 'list'}
+                className={cn(
+                  'flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-sm font-medium transition-colors',
+                  view === 'list'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                )}
+              >
+                <List className="h-4 w-4" />
+                <span className="hidden sm:inline">List</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setView('calendar')}
+                aria-pressed={view === 'calendar'}
+                className={cn(
+                  'flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-sm font-medium transition-colors',
+                  view === 'calendar'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                )}
+              >
+                <CalendarDays className="h-4 w-4" />
+                <span className="hidden sm:inline">Calendar</span>
+              </button>
+            </div>
+            <Link href="/invoices/new" className={buttonVariants()}>
+              New invoice
+            </Link>
+          </div>
         </div>
 
         {error ? (
@@ -133,6 +168,8 @@ function InvoicesPageInner() {
               </Link>
             </CardContent>
           </Card>
+        ) : view === 'calendar' ? (
+          <InvoiceCalendarView invoices={invoices ?? []} />
         ) : (
           <div className="space-y-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
