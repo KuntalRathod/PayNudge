@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { Download } from 'lucide-react';
 import { apiGet } from '@/lib/api/client';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { exportToCsv } from '@/lib/csv';
 import { cn } from '@/lib/utils';
 import { formatClientAmount, formatClientDate } from './format';
 import type { ClientListResponse, ClientWithStats } from './types';
@@ -116,16 +118,53 @@ export function ClientsList() {
     );
   }
 
+  function handleExportCsv() {
+    const rows = filtered.map((client) => ({
+      name: client.name,
+      email: client.email,
+      company: client.company ?? '',
+      invoice_count: client.stats.invoiceCount,
+      total_billed: client.stats.totalBilled,
+      total_paid: client.stats.totalPaid,
+      outstanding_amount: client.stats.outstandingAmount,
+      overdue_amount: client.stats.overdueAmount,
+      overdue_count: client.stats.overdueCount,
+      last_invoice_date: client.stats.lastInvoiceDate ?? '',
+    }));
+    exportToCsv(
+      `clients-${new Date().toISOString().slice(0, 10)}.csv`,
+      [
+        { key: 'name', label: 'Name' },
+        { key: 'email', label: 'Email' },
+        { key: 'company', label: 'Company' },
+        { key: 'invoice_count', label: 'Invoice Count' },
+        { key: 'total_billed', label: 'Total Billed' },
+        { key: 'total_paid', label: 'Total Paid' },
+        { key: 'outstanding_amount', label: 'Outstanding Amount' },
+        { key: 'overdue_amount', label: 'Overdue Amount' },
+        { key: 'overdue_count', label: 'Overdue Count' },
+        { key: 'last_invoice_date', label: 'Last Invoice Date' },
+      ],
+      rows,
+    );
+  }
+
   return (
     <div className="space-y-4">
-      <Input
-        type="search"
-        placeholder="Search by name or email…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="sm:max-w-xs"
-        aria-label="Search clients"
-      />
+      <div className="flex flex-wrap items-center gap-2 sm:justify-between">
+        <Input
+          type="search"
+          placeholder="Search by name or email…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="sm:max-w-xs"
+          aria-label="Search clients"
+        />
+        <Button variant="outline" size="sm" onClick={handleExportCsv}>
+          <Download className="mr-2 h-4 w-4" />
+          Export CSV
+        </Button>
+      </div>
 
       {filtered.length === 0 ? (
         <Card>

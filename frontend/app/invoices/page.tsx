@@ -3,14 +3,15 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { CalendarDays, List } from 'lucide-react';
+import { CalendarDays, Download, List } from 'lucide-react';
 import { Nav } from '@/components/nav';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SkeletonTable } from '@/components/ui/skeleton-card';
 import { apiGet } from '@/lib/api/client';
+import { exportToCsv } from '@/lib/csv';
 import { cn } from '@/lib/utils';
 import { InvoiceCalendarView } from './calendar-view';
 import { formatAmount, formatDate } from './format';
@@ -86,6 +87,29 @@ function InvoicesPageInner() {
   const noResultsForFilter =
     invoices !== null && invoices.length > 0 && filtered.length === 0;
 
+  function handleExportCsv() {
+    const rows = filtered.map((invoice) => ({
+      invoice_number: invoice.invoice_number,
+      description: invoice.description,
+      amount: typeof invoice.amount === 'number' ? invoice.amount : Number(invoice.amount),
+      due_date: invoice.due_date,
+      status: invoice.status,
+      created_at: invoice.created_at,
+    }));
+    exportToCsv(
+      `invoices-${new Date().toISOString().slice(0, 10)}.csv`,
+      [
+        { key: 'invoice_number', label: 'Invoice Number' },
+        { key: 'description', label: 'Description' },
+        { key: 'amount', label: 'Amount' },
+        { key: 'due_date', label: 'Due Date' },
+        { key: 'status', label: 'Status' },
+        { key: 'created_at', label: 'Created At' },
+      ],
+      rows,
+    );
+  }
+
   return (
     <>
       <Nav />
@@ -128,6 +152,12 @@ function InvoicesPageInner() {
                 <span className="hidden sm:inline">Calendar</span>
               </button>
             </div>
+            {invoices && invoices.length > 0 ? (
+              <Button variant="outline" size="sm" onClick={handleExportCsv}>
+                <Download className="mr-2 h-4 w-4" />
+                Export CSV
+              </Button>
+            ) : null}
             <Link href="/invoices/new" className={buttonVariants()}>
               New invoice
             </Link>
