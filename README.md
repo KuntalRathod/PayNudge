@@ -280,4 +280,4 @@ MIT
 
 ---
 
-Built by [Kuntal](https://github.com/your-username) as a proof-of-work project demonstrating full-stack product engineering: AI integration, state machines, real-time email delivery, PDF generation, property-based testing, and production-grade architecture.
+Built by [Kuntal](https://github.com/KuntalRathod) as a proof-of-work project demonstrating full-stack product engineering: AI integration, state machines, real-time email delivery, PDF generation, property-based testing, and production-grade architecture.
