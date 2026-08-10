@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Eye, EyeOff } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, signUp } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,7 @@ export function SignUpForm() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -93,18 +95,29 @@ export function SignUpForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              minLength={PASSWORD_MIN_LENGTH}
-              maxLength={PASSWORD_MAX_LENGTH}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={submitting}
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="new-password"
+                required
+                minLength={PASSWORD_MIN_LENGTH}
+                maxLength={PASSWORD_MAX_LENGTH}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={submitting}
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             <p className="text-xs text-muted-foreground">
               Must be {PASSWORD_MIN_LENGTH}–{PASSWORD_MAX_LENGTH} characters.
             </p>
