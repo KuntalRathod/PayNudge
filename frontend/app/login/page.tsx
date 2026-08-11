@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left panel: branding (hidden on mobile) */}
-      <div className="hidden w-1/2 flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
+      <div className="hidden w-1/2 flex-col justify-between bg-slate-900 p-10 text-white lg:flex">
         <Link href="/" className="text-lg font-semibold">
           PayNudge
         </Link>
@@ -15,11 +15,11 @@ export default function LoginPage() {
             &ldquo;Stop chasing payments manually. Let AI handle the awkward follow-ups while you
             focus on your work.&rdquo;
           </blockquote>
-          <p className="text-primary-foreground/70">
+          <p className="text-white/60">
             AI-powered invoice follow-ups for freelancers and small businesses.
           </p>
         </div>
-        <p className="text-sm text-primary-foreground/60">
+        <p className="text-sm text-white/40">
           © {new Date().getFullYear()} PayNudge
         </p>
       </div>

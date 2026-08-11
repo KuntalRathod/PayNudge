@@ -5,7 +5,7 @@ export default function SignUpPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left panel: branding (hidden on mobile) */}
-      <div className="hidden w-1/2 flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
+      <div className="hidden w-1/2 flex-col justify-between bg-slate-900 p-10 text-white lg:flex">
         <Link href="/" className="text-lg font-semibold">
           PayNudge
         </Link>
@@ -14,14 +14,14 @@ export default function SignUpPage() {
             &ldquo;Create invoices, track payments, and let AI draft follow-ups — with you
             approving every message.&rdquo;
           </blockquote>
-          <div className="space-y-2 text-sm text-primary-foreground/70">
+          <div className="space-y-2 text-sm text-white/70">
             <p>✓ Professional PDF invoices in seconds</p>
             <p>✓ AI drafts escalating follow-up emails</p>
             <p>✓ Nothing sent without your approval</p>
             <p>✓ Dashboard with real-time analytics</p>
           </div>
         </div>
-        <p className="text-sm text-primary-foreground/60">
+        <p className="text-sm text-white/40">
           © {new Date().getFullYear()} PayNudge
         </p>
       </div>

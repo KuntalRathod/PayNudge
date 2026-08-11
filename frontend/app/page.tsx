@@ -110,15 +110,15 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero */}
         <section className="container flex flex-col items-center gap-8 pb-20 pt-20 text-center md:pt-32">
-          <div className="flex items-center gap-2 rounded-full border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
-            <Sparkles className="h-4 w-4 text-primary" />
+          <div className="flex items-center gap-2 rounded-full border bg-muted px-4 py-1.5 text-sm text-muted-foreground">
+            <Sparkles className="h-4 w-4 text-amber-500" />
             AI-powered invoice follow-ups
           </div>
 
           <h1 className="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Stop chasing payments.
             <br />
-            <span className="text-primary">Let AI do it for you.</span>
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-violet-400">Let AI do it for you.</span>
           </h1>
 
           <p className="max-w-xl text-lg text-muted-foreground">
@@ -148,7 +148,7 @@ export default function LandingPage() {
         </section>
 
         {/* How it works */}
-        <section className="border-t bg-muted/30 py-20">
+        <section className="border-t bg-muted/50 py-20">
           <div className="container">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight">How it works</h2>
@@ -160,7 +160,7 @@ export default function LandingPage() {
             <div className="grid gap-8 md:grid-cols-3">
               {STEPS.map((step) => (
                 <div key={step.step} className="relative flex flex-col items-center text-center">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-foreground text-xl font-bold text-background">
                     {step.step}
                   </div>
                   <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
@@ -185,9 +185,9 @@ export default function LandingPage() {
               {FEATURES.map((feature) => (
                 <div
                   key={feature.title}
-                  className="rounded-lg border bg-card p-6 transition-colors hover:bg-accent/50"
+                  className="rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
                 >
-                  <feature.icon className="mb-3 h-8 w-8 text-primary" />
+                  <feature.icon className="mb-3 h-8 w-8 text-blue-600 dark:text-blue-400" />
                   <h3 className="mb-2 font-semibold">{feature.title}</h3>
                   <p className="text-sm text-muted-foreground">{feature.description}</p>
                 </div>
@@ -197,7 +197,7 @@ export default function LandingPage() {
         </section>
 
         {/* Escalation tiers */}
-        <section className="border-t bg-muted/30 py-20">
+        <section className="border-t bg-muted/50 py-20">
           <div className="container">
             <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight">Smart escalation</h2>
@@ -259,25 +259,25 @@ export default function LandingPage() {
         </section>
 
         {/* CTA */}
-        <section className="border-t bg-primary py-16 text-primary-foreground">
+        <section className="border-t bg-foreground py-16 text-background">
           <div className="container flex flex-col items-center gap-6 text-center">
             <Zap className="h-10 w-10" />
             <h2 className="text-3xl font-bold tracking-tight">
               Ready to stop chasing payments?
             </h2>
-            <p className="max-w-md text-primary-foreground/80">
+            <p className="max-w-md opacity-70">
               Create your free account in 30 seconds. Start sending invoices and let AI handle the
               awkward follow-ups.
             </p>
             <Link
               href="/signup"
               className={cn(
-                buttonVariants({ size: 'lg', variant: 'secondary' }),
-                'gap-2',
+                buttonVariants({ size: 'lg', variant: 'outline' }),
+                'border-background/30 bg-background text-foreground hover:bg-background/90',
               )}
             >
               Get started free
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
         </section>
