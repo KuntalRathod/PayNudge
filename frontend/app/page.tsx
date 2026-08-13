@@ -17,71 +17,56 @@ const FEATURES = [
   {
     icon: FileText,
     title: 'Professional Invoices',
-    description:
-      'Create and send beautiful PDF invoices in seconds. Auto-numbered, branded with your logo.',
-    gradient: 'from-blue-500/20 to-cyan-500/20',
+    description: 'Create and send PDF invoices in seconds. Auto-numbered, branded with your logo.',
     iconColor: 'text-blue-500',
   },
   {
     icon: Sparkles,
     title: 'AI Follow-ups',
-    description:
-      'When invoices go overdue, AI drafts tactful follow-up emails that escalate in tone over time.',
-    gradient: 'from-violet-500/20 to-purple-500/20',
+    description: 'AI drafts tactful follow-up emails that escalate in tone as invoices age.',
     iconColor: 'text-violet-500',
   },
   {
     icon: Shield,
     title: 'Human-in-the-Loop',
-    description:
-      'Nothing is sent without your approval. Review, edit, or regenerate every email before it reaches your client.',
-    gradient: 'from-emerald-500/20 to-green-500/20',
+    description: 'Nothing is sent without your approval. Review and edit every email.',
     iconColor: 'text-emerald-500',
   },
   {
     icon: TrendingUp,
     title: 'Dashboard Analytics',
-    description:
-      'Track outstanding amounts, collection rates, and average days to pay — all in one place.',
-    gradient: 'from-orange-500/20 to-amber-500/20',
+    description: 'Outstanding amounts, collection rates, average days to pay — at a glance.',
     iconColor: 'text-orange-500',
   },
   {
     icon: Calendar,
     title: 'Calendar View',
-    description:
-      'Visualize due dates on a month grid. Never miss a deadline or forget to follow up.',
-    gradient: 'from-pink-500/20 to-rose-500/20',
+    description: 'Visualize due dates on a month grid. Never miss a deadline.',
     iconColor: 'text-pink-500',
   },
   {
     icon: Mail,
     title: 'Email Delivery',
-    description:
-      'Invoices and follow-ups are delivered via Resend with real-time delivery confirmation.',
-    gradient: 'from-sky-500/20 to-indigo-500/20',
+    description: 'Delivered via Resend with real-time confirmation and timeout handling.',
     iconColor: 'text-sky-500',
   },
 ];
 
 const STEPS = [
   {
-    step: '1',
+    step: '01',
     title: 'Create & Send',
-    description: 'Add your client, create an invoice, and send it with one click. A professional PDF is attached automatically.',
-    icon: FileText,
+    description: 'Add a client, create an invoice, send it. A professional PDF is attached automatically.',
   },
   {
-    step: '2',
+    step: '02',
     title: 'AI Drafts Follow-ups',
-    description: 'When an invoice becomes overdue, AI drafts a polite follow-up email. The tone escalates automatically over time.',
-    icon: Sparkles,
+    description: 'When overdue, AI drafts a follow-up email. Tone escalates over time: Polite → Firm → Final Notice.',
   },
   {
-    step: '3',
-    title: 'You Approve & Get Paid',
-    description: 'Review each draft, edit if needed, and hit send. Mark as paid when the money lands. Celebrate with confetti.',
-    icon: CheckCircle2,
+    step: '03',
+    title: 'Approve & Get Paid',
+    description: 'Review, edit if needed, approve. Mark as paid when money lands. The chase stops automatically.',
   },
 ];
 
@@ -95,32 +80,25 @@ const TECH_BADGES = [
   'Resend',
   'pdfkit',
   'Vitest',
+  '380+ Tests',
 ];
 
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Nav */}
-      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <nav className="container flex h-14 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600">
-              <Zap className="h-4 w-4 text-white" />
-            </div>
+          <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-tight">
+            <Zap className="h-4 w-4" />
             PayNudge
           </Link>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/login"
-              className={buttonVariants({ variant: 'ghost', size: 'sm' })}
-            >
+          <div className="flex items-center gap-3">
+            <Link href="/login" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
               Log in
             </Link>
-            <Link
-              href="/signup"
-              className={cn(buttonVariants({ size: 'sm' }), 'bg-gradient-to-r from-blue-600 to-violet-600 text-white hover:from-blue-700 hover:to-violet-700 border-0')}
-            >
-              Get started free
+            <Link href="/signup" className={cn(buttonVariants({ size: 'sm' }), 'rounded-full px-4')}>
+              Get started
             </Link>
           </div>
         </nav>
@@ -128,165 +106,173 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          {/* Background glow effects */}
+        <section className="relative overflow-hidden border-b border-border/40">
+          {/* Grid lines */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-500/10 to-violet-500/10 blur-3xl" />
-            <div className="absolute -bottom-20 left-1/4 h-[300px] w-[400px] rounded-full bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 blur-3xl" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-border/20" />
+            <div className="absolute inset-x-0 top-1/3 h-px bg-border/20" />
+            <div className="absolute inset-x-0 bottom-1/4 h-px bg-border/20" />
           </div>
 
-          <div className="container relative flex flex-col items-center gap-8 pb-24 pt-20 text-center md:pt-32">
-            <div className="flex items-center gap-2 rounded-full border border-border/50 bg-card px-4 py-2 text-sm shadow-sm">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600">
-                <Sparkles className="h-3 w-3 text-white" />
-              </span>
-              <span className="text-muted-foreground">AI-powered invoice follow-ups</span>
-            </div>
+          {/* Subtle radial glow */}
+          <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-blue-500/5 to-transparent blur-3xl" />
 
-            <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Stop chasing payments.
-              <br />
-              <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-violet-400 dark:to-purple-400">
-                Let AI do it for you.
-              </span>
-            </h1>
-
-            <p className="max-w-2xl text-lg text-muted-foreground md:text-xl">
-              Create invoices, track payments, and let AI draft follow-up emails for overdue
-              invoices — with you approving every message before it&apos;s sent.
+          <div className="container relative flex flex-col items-center gap-6 py-28 text-center md:py-40">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              AI-powered invoice automation
             </p>
 
-            <div className="flex flex-col items-center gap-4 sm:flex-row">
+            <h1 className="max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+              Stop chasing
+              <br />
+              payments manually.
+            </h1>
+
+            <p className="max-w-lg text-base text-muted-foreground md:text-lg">
+              Create invoices. Track payments. Let AI draft follow-up emails when things go overdue — with your approval on every message.
+            </p>
+
+            <div className="flex items-center gap-3 pt-2">
               <Link
                 href="/signup"
-                className={cn(
-                  buttonVariants({ size: 'lg' }),
-                  'gap-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-blue-500/25 hover:from-blue-700 hover:to-violet-700 hover:shadow-blue-500/30 border-0 px-8',
-                )}
+                className={cn(buttonVariants({ size: 'lg' }), 'rounded-full px-8')}
               >
                 Start for free
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
                 href="/login"
-                className={buttonVariants({ variant: 'outline', size: 'lg' })}
+                className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'rounded-full px-8')}
               >
-                Log in to your account
+                Log in
               </Link>
             </div>
 
-            <p className="text-sm text-muted-foreground/70">
-              No credit card required · Free tier available · Set up in 30 seconds
+            <p className="pt-2 text-xs text-muted-foreground/60">
+              No credit card · Free tier · 30 second setup
             </p>
           </div>
         </section>
 
         {/* How it works */}
-        <section className="border-t bg-muted/40 py-24">
-          <div className="container">
-            <div className="mb-16 text-center">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">How it works</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Three steps to get paid faster</h2>
-            </div>
-
-            <div className="relative mx-auto max-w-4xl">
-              {/* Connector line (desktop) */}
-              <div className="absolute left-0 right-0 top-12 hidden h-0.5 bg-gradient-to-r from-blue-500/50 via-violet-500/50 to-emerald-500/50 md:block" />
-
-              <div className="grid gap-12 md:grid-cols-3 md:gap-8">
-                {STEPS.map((step) => (
-                  <div key={step.step} className="relative flex flex-col items-center text-center">
-                    <div className="relative z-10 mb-6 flex h-24 w-24 flex-col items-center justify-center rounded-2xl border bg-card shadow-sm">
-                      <step.icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                      <span className="mt-1 text-xs font-bold text-muted-foreground">STEP {step.step}</span>
-                    </div>
-                    <h3 className="mb-2 text-lg font-bold">{step.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{step.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <section className="relative border-b border-border/40">
+          {/* Grid lines */}
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
           </div>
-        </section>
 
-        {/* Features grid */}
-        <section className="py-24">
-          <div className="container">
-            <div className="mb-16 text-center">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-400">Features</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything you need to get paid</h2>
-              <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-                A complete invoicing workflow with AI automation built in. No more spreadsheets, no more awkward emails.
-              </p>
-            </div>
+          <div className="container relative py-24">
+            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              How it works
+            </p>
+            <h2 className="mb-16 text-center text-3xl font-bold tracking-tight">
+              Three steps to get paid
+            </h2>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {FEATURES.map((feature) => (
+            <div className="grid gap-12 md:grid-cols-3 md:gap-0">
+              {STEPS.map((step, index) => (
                 <div
-                  key={feature.title}
-                  className="group relative overflow-hidden rounded-xl border bg-card p-6 transition-all hover:shadow-lg hover:-translate-y-1"
+                  key={step.step}
+                  className={cn(
+                    'flex flex-col items-center text-center md:px-8',
+                    index < STEPS.length - 1 && 'md:border-r md:border-border/40',
+                  )}
                 >
-                  {/* Gradient background on hover */}
-                  <div className={cn('absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity group-hover:opacity-100', feature.gradient)} />
-                  <div className="relative">
-                    <div className={cn('mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-muted', feature.iconColor)}>
-                      <feature.icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="mb-2 font-bold">{feature.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
-                  </div>
+                  <span className="mb-4 font-mono text-4xl font-light text-muted-foreground/40">
+                    {step.step}
+                  </span>
+                  <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{step.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Escalation tiers */}
-        <section className="border-t bg-muted/40 py-24">
-          <div className="container">
-            <div className="mb-16 text-center">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Smart escalation</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AI adjusts tone automatically</h2>
-              <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-                The longer an invoice stays overdue, the firmer the follow-up becomes. You control the timing.
-              </p>
-            </div>
+        {/* Features */}
+        <section className="relative border-b border-border/40">
+          {/* Grid lines */}
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+          </div>
 
-            <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
-              <div className="rounded-xl border bg-card p-6 shadow-sm">
-                <div className="mb-3 flex items-center gap-3">
-                  <div className="h-4 w-4 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 shadow-sm shadow-green-500/30" />
-                  <span className="font-bold">Polite</span>
+          <div className="container relative py-24">
+            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Features
+            </p>
+            <h2 className="mb-4 text-center text-3xl font-bold tracking-tight">
+              Everything you need
+            </h2>
+            <p className="mx-auto mb-16 max-w-md text-center text-sm text-muted-foreground">
+              A complete invoicing workflow with AI automation. No more spreadsheets, no more awkward emails.
+            </p>
+
+            <div className="grid gap-px overflow-hidden rounded-xl border border-border/40 bg-border/40 sm:grid-cols-2 lg:grid-cols-3">
+              {FEATURES.map((feature) => (
+                <div
+                  key={feature.title}
+                  className="flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-muted/30"
+                >
+                  <feature.icon className={cn('h-5 w-5', feature.iconColor)} />
+                  <h3 className="text-sm font-semibold">{feature.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
                 </div>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Friendly reminder. Assumes the client simply forgot. Gives them the benefit of the doubt.
-                </p>
-                <div className="rounded-md bg-muted px-3 py-2 text-xs font-medium text-muted-foreground">
-                  Triggers at day 1+
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Escalation */}
+        <section className="relative border-b border-border/40">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+          </div>
+
+          <div className="container relative py-24">
+            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Escalation
+            </p>
+            <h2 className="mb-4 text-center text-3xl font-bold tracking-tight">
+              AI adjusts tone automatically
+            </h2>
+            <p className="mx-auto mb-16 max-w-md text-center text-sm text-muted-foreground">
+              The longer an invoice stays overdue, the firmer the follow-up becomes. Fully configurable.
+            </p>
+
+            <div className="mx-auto flex max-w-2xl flex-col gap-4">
+              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-green-500" />
+                <div className="flex-1">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm font-semibold">Polite</span>
+                    <span className="font-mono text-xs text-muted-foreground">day 1+</span>
+                  </div>
+                  <p className="mt-0.5 text-sm text-muted-foreground">Friendly reminder. Benefit of the doubt.</p>
                 </div>
               </div>
-              <div className="rounded-xl border bg-card p-6 shadow-sm">
-                <div className="mb-3 flex items-center gap-3">
-                  <div className="h-4 w-4 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 shadow-sm shadow-amber-500/30" />
-                  <span className="font-bold">Firm</span>
-                </div>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Professional and clear. Payment is noticeably overdue and should be settled promptly.
-                </p>
-                <div className="rounded-md bg-muted px-3 py-2 text-xs font-medium text-muted-foreground">
-                  Triggers at day 7+
+              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-amber-500" />
+                <div className="flex-1">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm font-semibold">Firm</span>
+                    <span className="font-mono text-xs text-muted-foreground">day 7+</span>
+                  </div>
+                  <p className="mt-0.5 text-sm text-muted-foreground">Professional and clear. Payment is overdue.</p>
                 </div>
               </div>
-              <div className="rounded-xl border bg-card p-6 shadow-sm">
-                <div className="mb-3 flex items-center gap-3">
-                  <div className="h-4 w-4 rounded-full bg-gradient-to-br from-red-400 to-rose-600 shadow-sm shadow-red-500/30" />
-                  <span className="font-bold">Final Notice</span>
-                </div>
-                <p className="mb-3 text-sm text-muted-foreground">
-                  Urgent and direct. Clear statement that this is the last reminder before further action.
-                </p>
-                <div className="rounded-md bg-muted px-3 py-2 text-xs font-medium text-muted-foreground">
-                  Triggers at day 14+
+              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
+                <div className="flex-1">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm font-semibold">Final Notice</span>
+                    <span className="font-mono text-xs text-muted-foreground">day 14+</span>
+                  </div>
+                  <p className="mt-0.5 text-sm text-muted-foreground">Urgent. Last reminder before further action.</p>
                 </div>
               </div>
             </div>
@@ -294,18 +280,25 @@ export default function LandingPage() {
         </section>
 
         {/* Tech stack */}
-        <section className="py-24">
-          <div className="container text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-pink-600 dark:text-pink-400">Tech stack</p>
-            <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">Built with modern tools</h2>
-            <p className="mx-auto mb-10 max-w-xl text-muted-foreground">
-              Production-grade architecture. Property-based tested. Type-safe end to end. 380+ tests.
+        <section className="relative border-b border-border/40">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+          </div>
+
+          <div className="container relative py-24 text-center">
+            <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Stack
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight">Built with modern tools</h2>
+            <p className="mx-auto mb-10 max-w-md text-sm text-muted-foreground">
+              Production-grade architecture. Property-based tested. Type-safe end to end.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2">
               {TECH_BADGES.map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-full border bg-card px-4 py-2 text-sm font-medium shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
+                  className="rounded-full border border-border/60 px-3.5 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
                 >
                   {badge}
                 </span>
@@ -315,52 +308,44 @@ export default function LandingPage() {
         </section>
 
         {/* CTA */}
-        <section className="relative overflow-hidden border-t py-24">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-violet-500/5" />
-          <div className="container relative flex flex-col items-center gap-8 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-500/25">
-              <Zap className="h-8 w-8 text-white" />
-            </div>
-            <h2 className="max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">
-              Ready to stop chasing payments?
+        <section className="relative">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-border/20" />
+          </div>
+
+          <div className="container relative flex flex-col items-center gap-6 py-28 text-center">
+            <h2 className="max-w-md text-3xl font-bold tracking-tight">
+              Ready to get paid faster?
             </h2>
-            <p className="max-w-lg text-lg text-muted-foreground">
-              Create your free account in 30 seconds. Start sending invoices and let AI handle the
-              awkward follow-ups.
+            <p className="max-w-sm text-sm text-muted-foreground">
+              Free account. 30 second setup. Start sending invoices today.
             </p>
             <Link
               href="/signup"
-              className={cn(
-                buttonVariants({ size: 'lg' }),
-                'gap-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg shadow-blue-500/25 hover:from-blue-700 hover:to-violet-700 border-0 px-8',
-              )}
+              className={cn(buttonVariants({ size: 'lg' }), 'rounded-full px-8')}
             >
-              Get started free
-              <ArrowRight className="h-4 w-4" />
+              Get started
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-10">
+      <footer className="border-t border-border/40 py-8">
         <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2 font-semibold">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-violet-600">
-              <Zap className="h-3.5 w-3.5 text-white" />
-            </div>
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <Zap className="h-3.5 w-3.5" />
             PayNudge
           </div>
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} PayNudge. Built as a proof-of-work project.
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} PayNudge
           </p>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <Link href="/login" className="transition-colors hover:text-foreground">
-              Log in
-            </Link>
-            <Link href="/signup" className="transition-colors hover:text-foreground">
-              Sign up
-            </Link>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <Link href="/login" className="transition-colors hover:text-foreground">Log in</Link>
+            <Link href="/signup" className="transition-colors hover:text-foreground">Sign up</Link>
           </div>
         </div>
       </footer>
