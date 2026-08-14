@@ -87,7 +87,7 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Nav */}
-      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <nav className="container flex h-14 items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-tight">
             <Zap className="h-4 w-4" />
@@ -106,14 +106,14 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden border-b border-border/40">
+        <section className="relative overflow-hidden border-b border-border">
           {/* Grid lines */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
-            <div className="absolute inset-y-0 left-1/2 w-px bg-border/20" />
-            <div className="absolute inset-x-0 top-1/3 h-px bg-border/20" />
-            <div className="absolute inset-x-0 bottom-1/4 h-px bg-border/20" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-border/50" />
+            <div className="absolute inset-x-0 top-1/3 h-px bg-border/50" />
+            <div className="absolute inset-x-0 bottom-1/4 h-px bg-border/50" />
           </div>
 
           {/* Subtle radial glow */}
@@ -157,11 +157,11 @@ export default function LandingPage() {
         </section>
 
         {/* How it works */}
-        <section className="relative border-b border-border/40">
+        <section className="relative border-b border-border">
           {/* Grid lines */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
           </div>
 
           <div className="container relative py-24">
@@ -178,7 +178,7 @@ export default function LandingPage() {
                   key={step.step}
                   className={cn(
                     'flex flex-col items-center text-center md:px-8',
-                    index < STEPS.length - 1 && 'md:border-r md:border-border/40',
+                    index < STEPS.length - 1 && 'md:border-r md:border-border',
                   )}
                 >
                   <span className="mb-4 font-mono text-4xl font-light text-muted-foreground/40">
@@ -193,11 +193,11 @@ export default function LandingPage() {
         </section>
 
         {/* Features */}
-        <section className="relative border-b border-border/40">
+        <section className="relative border-b border-border">
           {/* Grid lines */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
           </div>
 
           <div className="container relative py-24">
@@ -211,7 +211,7 @@ export default function LandingPage() {
               A complete invoicing workflow with AI automation. No more spreadsheets, no more awkward emails.
             </p>
 
-            <div className="grid gap-px overflow-hidden rounded-xl border border-border/40 bg-border/40 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border/40 sm:grid-cols-2 lg:grid-cols-3">
               {FEATURES.map((feature) => (
                 <div
                   key={feature.title}
@@ -227,10 +227,10 @@ export default function LandingPage() {
         </section>
 
         {/* Escalation */}
-        <section className="relative border-b border-border/40">
+        <section className="relative border-b border-border">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
           </div>
 
           <div className="container relative py-24">
@@ -245,7 +245,7 @@ export default function LandingPage() {
             </p>
 
             <div className="mx-auto flex max-w-2xl flex-col gap-4">
-              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
                 <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-green-500" />
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2">
@@ -255,7 +255,7 @@ export default function LandingPage() {
                   <p className="mt-0.5 text-sm text-muted-foreground">Friendly reminder. Benefit of the doubt.</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
                 <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-amber-500" />
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2">
@@ -265,7 +265,7 @@ export default function LandingPage() {
                   <p className="mt-0.5 text-sm text-muted-foreground">Professional and clear. Payment is overdue.</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 rounded-lg border border-border/40 bg-background p-5 transition-colors hover:bg-muted/30">
+              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
                 <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2">
@@ -280,10 +280,10 @@ export default function LandingPage() {
         </section>
 
         {/* Tech stack */}
-        <section className="relative border-b border-border/40">
+        <section className="relative border-b border-border">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
           </div>
 
           <div className="container relative py-24 text-center">
@@ -310,9 +310,9 @@ export default function LandingPage() {
         {/* CTA */}
         <section className="relative">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border/30 sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border/30 sm:right-[15%]" />
-            <div className="absolute inset-y-0 left-1/2 w-px bg-border/20" />
+            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
+            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
+            <div className="absolute inset-y-0 left-1/2 w-px bg-border/50" />
           </div>
 
           <div className="container relative flex flex-col items-center gap-6 py-28 text-center">
@@ -334,7 +334,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 py-8">
+      <footer className="border-t border-border py-8">
         <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2 text-sm font-semibold">
             <Zap className="h-3.5 w-3.5" />
