@@ -1,332 +1,403 @@
 import Link from 'next/link';
 import {
   ArrowRight,
-  Calendar,
-  CheckCircle2,
+  BadgeCheck,
+  Bot,
+  Check,
+  Clock,
   FileText,
   Mail,
-  Shield,
+  MousePointerClick,
+  ReceiptText,
+  ShieldCheck,
   Sparkles,
-  TrendingUp,
   Zap,
 } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
-const FEATURES = [
-  {
-    icon: FileText,
-    title: 'Professional Invoices',
-    description: 'Create and send PDF invoices in seconds. Auto-numbered, branded with your logo.',
-    iconColor: 'text-blue-500',
-  },
-  {
-    icon: Sparkles,
-    title: 'AI Follow-ups',
-    description: 'AI drafts tactful follow-up emails that escalate in tone as invoices age.',
-    iconColor: 'text-violet-500',
-  },
-  {
-    icon: Shield,
-    title: 'Human-in-the-Loop',
-    description: 'Nothing is sent without your approval. Review and edit every email.',
-    iconColor: 'text-emerald-500',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Dashboard Analytics',
-    description: 'Outstanding amounts, collection rates, average days to pay — at a glance.',
-    iconColor: 'text-orange-500',
-  },
-  {
-    icon: Calendar,
-    title: 'Calendar View',
-    description: 'Visualize due dates on a month grid. Never miss a deadline.',
-    iconColor: 'text-pink-500',
-  },
-  {
-    icon: Mail,
-    title: 'Email Delivery',
-    description: 'Delivered via Resend with real-time confirmation and timeout handling.',
-    iconColor: 'text-sky-500',
-  },
-];
-
-const STEPS = [
-  {
-    step: '01',
-    title: 'Create & Send',
-    description: 'Add a client, create an invoice, send it. A professional PDF is attached automatically.',
-  },
-  {
-    step: '02',
-    title: 'AI Drafts Follow-ups',
-    description: 'When overdue, AI drafts a follow-up email. Tone escalates over time: Polite → Firm → Final Notice.',
-  },
-  {
-    step: '03',
-    title: 'Approve & Get Paid',
-    description: 'Review, edit if needed, approve. Mark as paid when money lands. The chase stops automatically.',
-  },
-];
-
-const TECH_BADGES = [
-  'Next.js 14',
-  'TypeScript',
-  'Tailwind CSS',
-  'Supabase',
-  'Google Gemini',
-  'LangGraph',
-  'Resend',
-  'pdfkit',
-  'Vitest',
-  '380+ Tests',
-];
+import { PLANS } from './pricing/plans';
 
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white text-slate-900" data-theme="light">
       {/* Nav */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-        <nav className="container flex h-14 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-tight">
-            <Zap className="h-4 w-4" />
-            PayNudge
+      <header className="sticky top-0 z-50 border-b bg-white backdrop-blur-sm">
+        <nav className="container flex h-16 items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 font-bold">
+            <Zap className="h-5 w-5 text-blue-600" />
+            <span className="text-lg">PayNudge</span>
           </Link>
+
+          <div className="hidden items-center gap-8 text-sm md:flex">
+            <a href="#how-it-works" className="text-slate-500 hover:text-slate-900">How it works</a>
+            <a href="#features" className="text-slate-500 hover:text-slate-900">Features</a>
+            <a href="#pricing" className="text-slate-500 hover:text-slate-900">Pricing</a>
+            <a href="#faq" className="text-slate-500 hover:text-slate-900">FAQ</a>
+          </div>
+
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <Link href="/login" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
               Log in
             </Link>
-            <Link href="/signup" className={cn(buttonVariants({ size: 'sm' }), 'rounded-full px-4')}>
-              Get started
+            <Link href="/signup" className={cn(buttonVariants({ size: 'sm' }), 'bg-blue-600 hover:bg-blue-700 text-white')}>
+              Start free
             </Link>
           </div>
         </nav>
       </header>
 
       <main className="flex-1">
-        {/* Hero */}
-        <section className="relative overflow-hidden border-b border-border">
-          {/* Grid lines */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
-            <div className="absolute inset-y-0 left-1/2 w-px bg-border/50" />
-            <div className="absolute inset-x-0 top-1/3 h-px bg-border/50" />
-            <div className="absolute inset-x-0 bottom-1/4 h-px bg-border/50" />
-          </div>
+        {/* ─────────── HERO ─────────── */}
+        <section className="py-24 md:py-32">
+          <div className="container flex flex-col items-center text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700 ">
+              <Sparkles className="h-4 w-4" />
+              AI writes your follow-up emails
+            </div>
 
-          {/* Subtle radial glow */}
-          <div className="pointer-events-none absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-blue-500/5 to-transparent blur-3xl" />
-
-          <div className="container relative flex flex-col items-center gap-6 py-28 text-center md:py-40">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              AI-powered invoice automation
-            </p>
-
-            <h1 className="max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Stop chasing
+            <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl md:text-7xl">
+              Invoice clients.
               <br />
-              payments manually.
+              <span className="text-blue-600 text-blue-600">Get paid faster.</span>
             </h1>
 
-            <p className="max-w-lg text-base text-muted-foreground md:text-lg">
-              Create invoices. Track payments. Let AI draft follow-up emails when things go overdue — with your approval on every message.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-500">
+              PayNudge creates professional invoices, detects overdue payments, and
+              writes the reminder emails your clients need to hear — so you never have to.
             </p>
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/signup"
-                className={cn(buttonVariants({ size: 'lg' }), 'rounded-full px-8')}
+                className={cn(buttonVariants({ size: 'lg' }), 'bg-blue-600 hover:bg-blue-700 text-white px-8 text-base h-12')}
               >
-                Start for free
+                Create free account
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link
-                href="/login"
-                className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'rounded-full px-8')}
+              <a
+                href="#how-it-works"
+                className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'px-8 text-base h-12')}
               >
-                Log in
-              </Link>
+                See how it works
+              </a>
             </div>
 
-            <p className="pt-2 text-xs text-muted-foreground/60">
-              No credit card · Free tier · 30 second setup
-            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-slate-500">
+              <span className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-500" /> Free forever plan</span>
+              <span className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-500" /> No credit card required</span>
+              <span className="flex items-center gap-2"><Check className="h-4 w-4 text-emerald-500" /> Setup in 30 seconds</span>
+            </div>
           </div>
         </section>
 
-        {/* How it works */}
-        <section className="relative border-b border-border">
-          {/* Grid lines */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
+        {/* ─────────── PROBLEM ─────────── */}
+        <section className="border-y py-20">
+          <div className="container">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                You did the work. Now you&apos;re chasing money like it&apos;s a second job.
+              </h2>
+              <p className="mt-4 text-lg text-slate-500">
+                Most freelancers lose <span className="font-semibold text-slate-900">$5,000+ per year</span> to late payments.
+                Not because clients are malicious — they just forget. And sending that &ldquo;hey,
+                just checking in&rdquo; email for the 3rd time? Exhausting.
+              </p>
+            </div>
+
+            <div className="mt-14 grid gap-8 sm:grid-cols-3">
+              <div className="text-center">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-50 ">
+                  <Clock className="h-6 w-6 text-red-500" />
+                </div>
+                <p className="text-2xl font-bold">14+ hours</p>
+                <p className="mt-1 text-sm text-slate-500">wasted per month on payment reminders</p>
+              </div>
+              <div className="text-center">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-50 ">
+                  <ReceiptText className="h-6 w-6 text-amber-500" />
+                </div>
+                <p className="text-2xl font-bold">1 in 3</p>
+                <p className="mt-1 text-sm text-slate-500">invoices are paid late</p>
+              </div>
+              <div className="text-center">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 ">
+                  <Mail className="h-6 w-6 text-emerald-500" />
+                </div>
+                <p className="text-2xl font-bold">2x faster</p>
+                <p className="mt-1 text-sm text-slate-500">payment when you consistently follow up</p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div className="container relative py-24">
-            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              How it works
-            </p>
-            <h2 className="mb-16 text-center text-3xl font-bold tracking-tight">
-              Three steps to get paid
-            </h2>
+        {/* ─────────── HOW IT WORKS ─────────── */}
+        <section id="how-it-works" className="scroll-mt-20 py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-blue-600 text-blue-600">How it works</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+                You invoice. AI reminds. You get paid.
+              </h2>
+            </div>
 
-            <div className="grid gap-12 md:grid-cols-3 md:gap-0">
-              {STEPS.map((step, index) => (
+            <div className="mx-auto mt-16 max-w-4xl">
+              <div className="grid gap-12 md:grid-cols-3">
+                {/* Step 1 */}
+                <div className="relative">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 ">
+                    <FileText className="h-6 w-6" />
+                  </div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="rounded-full bg-blue-600 px-2 py-0.5 text-[10px] font-bold text-white">1</span>
+                    <h3 className="font-semibold">Send an invoice</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-slate-500">
+                    Enter the client, amount, and due date. We generate a branded PDF and email it instantly.
+                  </p>
+                </div>
+
+                {/* Step 2 */}
+                <div className="relative">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-violet-100 text-violet-600 ">
+                    <Bot className="h-6 w-6" />
+                  </div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-bold text-white">2</span>
+                    <h3 className="font-semibold">AI writes the follow-up</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-slate-500">
+                    Invoice overdue? AI drafts a professional reminder — polite first, then firmer if payment stays late.
+                  </p>
+                </div>
+
+                {/* Step 3 */}
+                <div className="relative">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 ">
+                    <MousePointerClick className="h-6 w-6" />
+                  </div>
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white">3</span>
+                    <h3 className="font-semibold">You click approve</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-slate-500">
+                    Read the email, edit if you want, send it. When the client pays, mark it done. No more nagging.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────── AI TONE DEMO ─────────── */}
+        <section className="border-y py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-violet-600 text-violet-600">Smart escalation</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+                The right tone, at the right time
+              </h2>
+              <p className="mt-4 text-slate-500">
+                Day 1 it&apos;s friendly. Day 7 it&apos;s firm. Day 14 it&apos;s a final notice. All written for you.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-14 max-w-3xl space-y-5">
+              {/* Polite */}
+              <div className="rounded-xl border p-5">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-emerald-500" />
+                    <span className="font-semibold">Polite</span>
+                    <span className="ml-2 rounded bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 ">Day 1</span>
+                  </div>
+                </div>
+                <div className="rounded-lg bg-slate-50 p-4">
+                  <p className="text-sm italic text-slate-500">
+                    &ldquo;Hi Sarah, just a quick heads up — invoice #12 for $2,400 was due yesterday.
+                    I am sure it just slipped through! Here is the payment link whenever you get a moment. Thanks!&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              {/* Firm */}
+              <div className="rounded-xl border p-5">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-amber-500" />
+                    <span className="font-semibold">Firm</span>
+                    <span className="ml-2 rounded bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700 ">Day 7</span>
+                  </div>
+                </div>
+                <div className="rounded-lg bg-slate-50 p-4">
+                  <p className="text-sm italic text-slate-500">
+                    &ldquo;Hi Sarah, invoice #12 for $2,400 is now 7 days past due. Could you let me know when
+                    I can expect payment? I have attached the invoice again for your records.&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              {/* Final */}
+              <div className="rounded-xl border p-5">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-red-500" />
+                    <span className="font-semibold">Final Notice</span>
+                    <span className="ml-2 rounded bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700 ">Day 14</span>
+                  </div>
+                </div>
+                <div className="rounded-lg bg-slate-50 p-4">
+                  <p className="text-sm italic text-slate-500">
+                    &ldquo;Hi Sarah, this is a final notice regarding invoice #12 ($2,400), which is now
+                    14 days overdue. Please arrange payment by end of this week to avoid further action on my end.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────── FEATURES ─────────── */}
+        <section id="features" className="scroll-mt-20 py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-blue-600 text-blue-600">Features</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+                More than just invoicing
+              </h2>
+              <p className="mt-4 text-slate-500">
+                Everything you need from first invoice to final payment, in one clean dashboard.
+              </p>
+            </div>
+
+            <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { icon: FileText, title: 'Branded PDF invoices', desc: 'Your logo, bank details, and payment terms. Generated instantly, emailed directly.', color: 'text-blue-500' },
+                { icon: Bot, title: 'AI-written reminders', desc: 'Never type "just checking in" again. AI writes contextual, professional follow-ups.', color: 'text-violet-500' },
+                { icon: ShieldCheck, title: 'Human approval always', desc: 'AI proposes, you decide. Every email goes through you before reaching the client.', color: 'text-emerald-500' },
+                { icon: Sparkles, title: 'Smart tone escalation', desc: 'Starts polite. Gets firmer. Stops when they pay. Fully configurable timing.', color: 'text-amber-500' },
+                { icon: BadgeCheck, title: 'Real-time dashboard', desc: 'Outstanding total, overdue amounts, avg. days to pay, collection rate — all live.', color: 'text-pink-500' },
+                { icon: Mail, title: 'Confirmed delivery', desc: 'Know your invoice and reminders actually arrived. No more "I never got it" excuses.', color: 'text-sky-500' },
+              ].map((f) => (
+                <div key={f.title} className="rounded-xl border p-6 transition-colors hover:bg-slate-50">
+                  <f.icon className={cn('mb-4 h-6 w-6', f.color)} />
+                  <h3 className="mb-2 font-semibold">{f.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-500">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────── PRICING ─────────── */}
+        <section id="pricing" className="scroll-mt-20 border-y py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-wider text-blue-600 text-blue-600">Pricing</p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+                One recovered late payment pays for a year of Pro
+              </h2>
+              <p className="mt-4 text-slate-500">
+                Start free with 3 clients and 5 invoices/month. Upgrade when you need AI follow-ups.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-3">
+              {PLANS.map((plan) => (
                 <div
-                  key={step.step}
+                  key={plan.name}
                   className={cn(
-                    'flex flex-col items-center text-center md:px-8',
-                    index < STEPS.length - 1 && 'md:border-r md:border-border',
+                    'relative flex flex-col rounded-2xl border p-7',
+                    plan.highlighted
+                      ? 'border-blue-600 shadow-lg shadow-blue-500/10 '
+                      : '',
                   )}
                 >
-                  <span className="mb-4 font-mono text-4xl font-light text-muted-foreground/40">
-                    {step.step}
-                  </span>
-                  <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                  {plan.highlighted ? (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
+                      Most popular
+                    </span>
+                  ) : null}
+
+                  <h3 className="text-lg font-bold">{plan.name}</h3>
+                  <p className="mt-1 text-sm text-slate-500">{plan.description}</p>
+
+                  <div className="mt-6 flex items-baseline gap-1">
+                    <span className="text-4xl font-extrabold tracking-tight">{plan.price}</span>
+                    <span className="text-slate-500">{plan.period}</span>
+                  </div>
+                  {plan.yearlyNote ? (
+                    <p className="mt-1 text-xs text-slate-500">{plan.yearlyNote}</p>
+                  ) : <p className="mt-1 text-xs text-transparent select-none">—</p>}
+
+                  <Link
+                    href="/signup"
+                    className={cn(
+                      buttonVariants({ variant: plan.highlighted ? 'default' : 'outline' }),
+                      'mt-7 w-full',
+                      plan.highlighted && 'bg-blue-600 hover:bg-blue-700 text-white',
+                    )}
+                  >
+                    {plan.cta}
+                  </Link>
+
+                  <ul className="mt-8 flex-1 space-y-3">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5 text-sm">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 text-blue-600" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-10 text-center text-sm text-slate-500">
+              14-day free trial on all paid plans. No credit card to start. Cancel anytime.
+            </p>
+          </div>
+        </section>
+
+        {/* ─────────── FAQ ─────────── */}
+        <section id="faq" className="scroll-mt-20 py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Questions?</h2>
+            </div>
+
+            <div className="mx-auto mt-14 grid max-w-4xl gap-8 sm:grid-cols-2">
+              {[
+                { q: 'Will it email my clients without asking?', a: 'Never. AI writes a draft, you read it, you send it. Nothing leaves without your explicit click.' },
+                { q: 'Do I need a credit card to start?', a: 'No. The Free plan is completely free — no trial, no card, no catch. Use it as long as you like.' },
+                { q: 'Can I edit the AI emails?', a: 'Yes. Change the subject, rewrite the body, regenerate with a different tone. You have full control.' },
+                { q: 'What happens when they pay?', a: 'Mark it as paid. All pending reminders are instantly canceled. No embarrassing follow-up after they already paid.' },
+                { q: 'Can I cancel anytime?', a: 'Yes. Downgrade to Free or cancel completely whenever you want. Your data stays yours.' },
+                { q: 'Is my data safe?', a: 'Every account is isolated at the database level (Row Level Security). Your data is invisible to every other user.' },
+              ].map((faq) => (
+                <div key={faq.q}>
+                  <h3 className="mb-2 font-semibold">{faq.q}</h3>
+                  <p className="text-sm leading-relaxed text-slate-500">{faq.a}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Features */}
-        <section className="relative border-b border-border">
-          {/* Grid lines */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
-          </div>
-
-          <div className="container relative py-24">
-            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Features
-            </p>
-            <h2 className="mb-4 text-center text-3xl font-bold tracking-tight">
-              Everything you need
+        {/* ─────────── FINAL CTA ─────────── */}
+        <section className="border-t py-24">
+          <div className="container flex flex-col items-center text-center">
+            <Zap className="mb-6 h-10 w-10 text-blue-600 text-blue-600" />
+            <h2 className="max-w-lg text-3xl font-bold tracking-tight sm:text-4xl">
+              Your next overdue invoice could chase itself
             </h2>
-            <p className="mx-auto mb-16 max-w-md text-center text-sm text-muted-foreground">
-              A complete invoicing workflow with AI automation. No more spreadsheets, no more awkward emails.
-            </p>
-
-            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border/40 sm:grid-cols-2 lg:grid-cols-3">
-              {FEATURES.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-muted/30"
-                >
-                  <feature.icon className={cn('h-5 w-5', feature.iconColor)} />
-                  <h3 className="text-sm font-semibold">{feature.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Escalation */}
-        <section className="relative border-b border-border">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
-          </div>
-
-          <div className="container relative py-24">
-            <p className="mb-2 text-center text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Escalation
-            </p>
-            <h2 className="mb-4 text-center text-3xl font-bold tracking-tight">
-              AI adjusts tone automatically
-            </h2>
-            <p className="mx-auto mb-16 max-w-md text-center text-sm text-muted-foreground">
-              The longer an invoice stays overdue, the firmer the follow-up becomes. Fully configurable.
-            </p>
-
-            <div className="mx-auto flex max-w-2xl flex-col gap-4">
-              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
-                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-green-500" />
-                <div className="flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-sm font-semibold">Polite</span>
-                    <span className="font-mono text-xs text-muted-foreground">day 1+</span>
-                  </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">Friendly reminder. Benefit of the doubt.</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
-                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-amber-500" />
-                <div className="flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-sm font-semibold">Firm</span>
-                    <span className="font-mono text-xs text-muted-foreground">day 7+</span>
-                  </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">Professional and clear. Payment is overdue.</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 rounded-lg border border-border bg-background p-5 transition-colors hover:bg-muted/30">
-                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
-                <div className="flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-sm font-semibold">Final Notice</span>
-                    <span className="font-mono text-xs text-muted-foreground">day 14+</span>
-                  </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">Urgent. Last reminder before further action.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Tech stack */}
-        <section className="relative border-b border-border">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
-          </div>
-
-          <div className="container relative py-24 text-center">
-            <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Stack
-            </p>
-            <h2 className="mb-4 text-3xl font-bold tracking-tight">Built with modern tools</h2>
-            <p className="mx-auto mb-10 max-w-md text-sm text-muted-foreground">
-              Production-grade architecture. Property-based tested. Type-safe end to end.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {TECH_BADGES.map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full border border-border/60 px-3.5 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="relative">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-y-0 left-[10%] w-px bg-border sm:left-[15%]" />
-            <div className="absolute inset-y-0 right-[10%] w-px bg-border sm:right-[15%]" />
-            <div className="absolute inset-y-0 left-1/2 w-px bg-border/50" />
-          </div>
-
-          <div className="container relative flex flex-col items-center gap-6 py-28 text-center">
-            <h2 className="max-w-md text-3xl font-bold tracking-tight">
-              Ready to get paid faster?
-            </h2>
-            <p className="max-w-sm text-sm text-muted-foreground">
-              Free account. 30 second setup. Start sending invoices today.
+            <p className="mt-4 max-w-md text-slate-500">
+              Create your free account, send an invoice, and see what happens when it goes overdue. Takes 30 seconds.
             </p>
             <Link
               href="/signup"
-              className={cn(buttonVariants({ size: 'lg' }), 'rounded-full px-8')}
+              className={cn(buttonVariants({ size: 'lg' }), 'mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 text-base h-12')}
             >
-              Get started
+              Start free — no card needed
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
@@ -334,18 +405,17 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2 text-sm font-semibold">
-            <Zap className="h-3.5 w-3.5" />
+      <footer className="border-t py-10">
+        <div className="container flex flex-col items-center justify-between gap-5 sm:flex-row">
+          <div className="flex items-center gap-2 font-bold">
+            <Zap className="h-4 w-4 text-blue-600" />
             PayNudge
           </div>
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} PayNudge
-          </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <Link href="/login" className="transition-colors hover:text-foreground">Log in</Link>
-            <Link href="/signup" className="transition-colors hover:text-foreground">Sign up</Link>
+          <p className="text-sm text-slate-500">© {new Date().getFullYear()} PayNudge. All rights reserved.</p>
+          <div className="flex items-center gap-5 text-sm text-slate-500">
+            <a href="#pricing" className="hover:text-slate-900">Pricing</a>
+            <Link href="/login" className="hover:text-slate-900">Log in</Link>
+            <Link href="/signup" className="hover:text-slate-900">Sign up</Link>
           </div>
         </div>
       </footer>
