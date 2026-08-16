@@ -9,14 +9,8 @@ import { signIn } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { CornerBrackets } from '@/components/landing/corner-brackets';
+import { cn } from '@/lib/utils';
 
 /**
  * Login form (Req 1.5, 1.6, 1.7).
@@ -58,68 +52,76 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>Log in</CardTitle>
-        <CardDescription>Welcome back. Enter your credentials to continue.</CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit} noValidate>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+    <div className="relative w-full max-w-sm border border-slate-200 bg-white p-7">
+      <CornerBrackets className="text-slate-300" />
+
+      <div className="mb-6">
+        <h1 className="text-xl font-bold text-slate-900">Log in</h1>
+        <p className="mt-1 text-sm text-slate-500">Welcome back. Enter your credentials to continue.</p>
+      </div>
+
+      <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={submitting}
+            className="border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:ring-indigo-600"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <div className="relative">
             <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               disabled={submitting}
+              className="border-slate-300 bg-white pr-10 text-slate-900 placeholder:text-slate-400 focus-visible:ring-indigo-600"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Input
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={submitting}
-                className="pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-          </div>
-          {error ? (
-            <p role="alert" className="text-sm text-destructive">
-              {error}
-            </p>
-          ) : null}
-        </CardContent>
-        <CardFooter className="flex flex-col items-stretch gap-3">
-          <Button type="submit" disabled={submitting} className="w-full">
-            {submitting ? 'Logging in…' : 'Log in'}
-          </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            Need an account?{' '}
-            <Link href="/signup" className="text-primary underline-offset-4 hover:underline">
-              Sign up
-            </Link>
+        </div>
+
+        {error ? (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
           </p>
-        </CardFooter>
+        ) : null}
+
+        <Button
+          type="submit"
+          disabled={submitting}
+          className={cn('relative w-full bg-indigo-600 text-xs font-bold uppercase tracking-widest text-white hover:bg-indigo-700')}
+        >
+          <CornerBrackets className="text-indigo-300" />
+          {submitting ? 'Logging in…' : 'Log in'}
+        </Button>
+
+        <p className="text-center text-sm text-slate-500">
+          Need an account?{' '}
+          <Link href="/signup" className="font-medium text-indigo-600 underline-offset-4 hover:underline">
+            Sign up
+          </Link>
+        </p>
       </form>
-    </Card>
+    </div>
   );
 }
