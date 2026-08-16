@@ -469,7 +469,7 @@ export default function LandingPage() {
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
             <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
-              [ 08 ] · Early access
+              [ 07 ] · Early access
             </p>
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -505,7 +505,7 @@ export default function LandingPage() {
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
             <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
-              [ 09 ] · FAQ
+              [ 08 ] · FAQ
             </p>
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Answers before you start</h2>
