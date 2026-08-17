@@ -604,30 +604,13 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Link columns */}
-          <div className="container flex flex-wrap justify-between gap-8 py-10">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-900">Product</p>
-              <ul className="mt-4 space-y-2.5 text-sm text-slate-500">
-                <li><a href="#features" className="hover:text-slate-900">Features</a></li>
-                <li><a href="#how-it-works" className="hover:text-slate-900">How it works</a></li>
-                <li><a href="#faq" className="hover:text-slate-900">FAQ</a></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-900">Account</p>
-              <ul className="mt-4 space-y-2.5 text-sm text-slate-500">
-                <li><Link href="/signup" className="hover:text-slate-900">Sign up</Link></li>
-                <li><Link href="/login" className="hover:text-slate-900">Log in</Link></li>
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-900">Legal</p>
-              <ul className="mt-4 space-y-2.5 text-sm text-slate-500">
-                <li><Link href="/" className="hover:text-slate-900">Privacy Policy</Link></li>
-                <li><Link href="/" className="hover:text-slate-900">Terms of Service</Link></li>
-              </ul>
-            </div>
+          {/* Footer links */}
+          <div className="container flex flex-wrap items-center justify-center gap-6 py-10 text-sm text-slate-500">
+            <a href="#features" className="hover:text-slate-900">Features</a>
+            <a href="#how-it-works" className="hover:text-slate-900">How it works</a>
+            <a href="#faq" className="hover:text-slate-900">FAQ</a>
+            <Link href="/signup" className="hover:text-slate-900">Sign up</Link>
+            <Link href="/login" className="hover:text-slate-900">Log in</Link>
           </div>
 
           {/* Bottom bar */}
