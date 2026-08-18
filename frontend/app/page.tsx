@@ -190,7 +190,7 @@ export default function LandingPage() {
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
             <p className="mb-10 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
-              [ 01 ] · Built different
+              
             </p>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {METRICS.map((m) => (
