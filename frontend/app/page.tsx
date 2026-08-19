@@ -126,32 +126,102 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* ─────────── HERO ─────────── */}
-        <section className="relative overflow-hidden border-b border-slate-200 bg-white">
-          <div className="container relative flex flex-col items-center py-20 text-center md:py-28">
-            {/* Vertical lines left and right, aligned to the container's edges */}
-            <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
-            <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <span className="mb-6 inline-flex items-center gap-2 bg-indigo-600 px-3 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-white" />
-              AI writes your payment follow-ups
+        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-slate-50 via-white to-white">
+          {/* Animated background orbs */}
+          <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+            <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-indigo-200/40 blur-3xl animate-float" />
+            <div className="absolute -right-32 top-20 h-72 w-72 rounded-full bg-violet-200/30 blur-3xl animate-float-slow" />
+            <div className="absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-indigo-100/50 blur-3xl animate-pulse-glow" />
+          </div>
+
+          {/* Grid dot pattern */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: 'radial-gradient(circle, #4f46e5 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+
+          <div className="container relative flex flex-col items-center py-24 text-center md:py-36">
+            {/* Vertical lines */}
+            <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200/60" />
+            <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200/60" />
+
+            {/* Animated badge */}
+            <span className="animate-scale-in mb-8 inline-flex items-center gap-2.5 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm shadow-indigo-100/50">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-600" />
+              </span>
+              <span className="text-xs font-semibold text-indigo-700">AI-powered invoice follow-ups</span>
+              <ArrowRight className="h-3 w-3 text-indigo-400" />
             </span>
 
-            <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-[4.5rem]">
-              Get Paid
+            {/* Headline with gradient text */}
+            <h1 className="animate-slide-up max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
+              Get Paid{' '}
+              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift">
+                Without
+              </span>
               <br />
-              Without the Awkward Emails
+              the Awkward Emails
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-500 md:text-lg">
+            {/* Subtitle */}
+            <p className="animate-slide-up mt-6 max-w-xl text-base leading-relaxed text-slate-500 [animation-delay:200ms] md:text-lg">
               Eliminate manual reminders and slow follow-ups. PayNudge automates
               the chase so you can send an invoice and get back to work.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <BracketButton href="/signup">Start Free</BracketButton>
-              <BracketButton href="#how-it-works" variant="outline">
+            {/* CTA buttons */}
+            <div className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-4 [animation-delay:400ms]">
+              <Link
+                href="/signup"
+                className="group relative inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-indigo-600 px-8 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/30"
+              >
+                Start Free
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-8 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-md"
+              >
                 See How It Works
-              </BracketButton>
+              </Link>
+            </div>
+
+            {/* Social proof micro-strip */}
+            <div className="animate-fade-in mt-14 flex flex-col items-center gap-3 [animation-delay:600ms]">
+              <div className="flex -space-x-2">
+                {['bg-indigo-500', 'bg-violet-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'].map((bg, i) => (
+                  <div key={i} className={`h-8 w-8 rounded-full ${bg} ring-2 ring-white flex items-center justify-center text-[10px] font-bold text-white`}>
+                    {['K', 'A', 'R', 'M', 'S'][i]}
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-slate-500">
+                <span className="font-semibold text-slate-700">Loved by freelancers</span>{' '}
+                who hate chasing payments
+              </p>
+            </div>
+
+            {/* Floating decorative elements */}
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-12 left-[10%] animate-float-slow">
+              <div className="relative h-16 w-16 rotate-12 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
+                <Mail className="h-full w-full text-indigo-500/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute right-[8%] top-1/3 animate-float">
+              <div className="relative h-14 w-14 -rotate-6 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
+                <Zap className="h-full w-full text-amber-500/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-1/4 right-[15%] animate-float-slow [animation-delay:2s]">
+              <div className="relative h-12 w-12 rotate-6 rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-lg">
+                <Check className="h-full w-full text-emerald-500/70" />
+              </div>
             </div>
           </div>
         </section>
