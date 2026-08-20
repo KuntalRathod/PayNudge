@@ -144,7 +144,7 @@ export default function LandingPage() {
             }}
           />
 
-          <div className="container relative flex flex-col items-center py-24 text-center md:py-36">
+          <div className="container relative flex flex-col items-center py-10 text-center md:py-14">
             {/* Vertical lines */}
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200/60" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200/60" />
