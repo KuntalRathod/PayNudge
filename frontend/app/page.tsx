@@ -208,19 +208,44 @@ export default function LandingPage() {
             </div>
 
             {/* Floating decorative elements */}
-            <div aria-hidden="true" className="pointer-events-none absolute bottom-12 left-[10%] animate-float-slow">
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-12 left-[10%] animate-float-slow [animation-delay:0s]">
               <div className="relative h-16 w-16 rotate-12 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
                 <Mail className="h-full w-full text-indigo-500/70" />
               </div>
             </div>
-            <div aria-hidden="true" className="pointer-events-none absolute right-[8%] top-1/3 animate-float">
+            <div aria-hidden="true" className="pointer-events-none absolute right-[8%] top-1/4 animate-float [animation-delay:1s]">
               <div className="relative h-14 w-14 -rotate-6 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
                 <Zap className="h-full w-full text-amber-500/70" />
               </div>
             </div>
-            <div aria-hidden="true" className="pointer-events-none absolute bottom-1/4 right-[15%] animate-float-slow [animation-delay:2s]">
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-1/4 right-[12%] animate-float-slow [animation-delay:3s]">
               <div className="relative h-12 w-12 rotate-6 rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-lg">
                 <Check className="h-full w-full text-emerald-500/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute left-[6%] top-1/3 animate-float [animation-delay:2s]">
+              <div className="relative h-13 w-13 -rotate-3 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
+                <FileText className="h-full w-full text-violet-500/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-[15%] left-[20%] animate-float [animation-delay:4s]">
+              <div className="relative h-11 w-11 rotate-[-8deg] rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-lg">
+                <Sparkles className="h-full w-full text-rose-400/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute right-[20%] top-[15%] animate-float-slow [animation-delay:5s]">
+              <div className="relative h-11 w-11 rotate-[10deg] rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-lg">
+                <Clock className="h-full w-full text-sky-500/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-[40%] left-[4%] animate-float-slow [animation-delay:6s]">
+              <div className="relative h-10 w-10 rotate-[-5deg] rounded-lg border border-slate-200/80 bg-white p-2 shadow-lg">
+                <Star className="h-full w-full text-amber-400/70" />
+              </div>
+            </div>
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-[10%] right-[5%] animate-float [animation-delay:3.5s]">
+              <div className="relative h-13 w-13 rotate-[5deg] rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
+                <Bot className="h-full w-full text-indigo-400/70" />
               </div>
             </div>
           </div>
