@@ -17,6 +17,7 @@ export interface Client {
   name: string;
   email: string;
   company: string | null;
+  notes: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -73,6 +74,7 @@ export interface ClientPayload {
   name: string;
   email: string;
   company: string | null;
+  notes: string | null;
 }
 
 /** Fields the backend can flag as invalid, matching `ClientField` server-side. */

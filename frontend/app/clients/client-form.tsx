@@ -7,6 +7,7 @@ import { apiPost, apiPut } from '@/lib/api/client';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Card,
   CardContent,
@@ -51,6 +52,7 @@ export function ClientForm(props: ClientFormProps) {
   const [name, setName] = useState(props.initialClient?.name ?? '');
   const [email, setEmail] = useState(props.initialClient?.email ?? '');
   const [company, setCompany] = useState(props.initialClient?.company ?? '');
+  const [notes, setNotes] = useState(props.initialClient?.notes ?? '');
   const [formError, setFormError] = useState<string | null>(null);
   const [invalidField, setInvalidField] = useState<ClientField | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -62,10 +64,12 @@ export function ClientForm(props: ClientFormProps) {
     setSubmitting(true);
 
     const trimmedCompany = company.trim();
+    const trimmedNotes = notes.trim();
     const payload: ClientPayload = {
       name: name.trim(),
       email: email.trim(),
       company: trimmedCompany.length > 0 ? trimmedCompany : null,
+      notes: trimmedNotes.length > 0 ? trimmedNotes : null,
     };
 
     const result =
@@ -142,6 +146,18 @@ export function ClientForm(props: ClientFormProps) {
               onChange={(e) => setCompany(e.target.value)}
               disabled={submitting}
               aria-invalid={invalidField === 'company'}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="notes">Notes (optional)</Label>
+            <Textarea
+              id="notes"
+              name="notes"
+              placeholder="e.g. Slow payer, prefers Monday emails…"
+              rows={3}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              disabled={submitting}
             />
           </div>
           {formError ? (

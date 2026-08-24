@@ -41,7 +41,7 @@ const CLIENTS_TABLE = 'clients';
 const INVOICES_TABLE = 'invoices';
 
 /** Columns returned to API callers (never leaks internal-only columns). */
-const CLIENT_COLUMNS = 'id, user_id, name, email, company, created_at, updated_at';
+const CLIENT_COLUMNS = 'id, user_id, name, email, company, notes, created_at, updated_at';
 
 /**
  * Invoice columns returned by the client-history endpoint. Mirrors the invoice
@@ -65,6 +65,7 @@ interface ClientRow {
   name: string;
   email: string;
   company: string | null;
+  notes: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -142,9 +143,10 @@ const handleCreate: RequestHandler = async (req: Request, res: Response): Promis
   }
 
   const { name, email, company } = validation.value;
+  const notes = typeof req.body.notes === 'string' ? req.body.notes.trim() || null : null;
   const { data, error } = await req.supabase
     .from(CLIENTS_TABLE)
-    .insert({ user_id: req.userId, name, email, company })
+    .insert({ user_id: req.userId, name, email, company, notes })
     .select(CLIENT_COLUMNS)
     .single();
 
@@ -349,9 +351,10 @@ const handleUpdate: RequestHandler = async (req: Request, res: Response): Promis
   }
 
   const { name, email, company } = validation.value;
+  const notes = typeof req.body.notes === 'string' ? req.body.notes.trim() || null : null;
   const { data, error } = await req.supabase
     .from(CLIENTS_TABLE)
-    .update({ name, email, company })
+    .update({ name, email, company, notes })
     .eq('id', req.params.id)
     .select(CLIENT_COLUMNS)
     .maybeSingle();

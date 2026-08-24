@@ -125,6 +125,11 @@ export function ClientDetail({ clientId }: { clientId: string }) {
           {client.company ? (
             <p className="text-sm text-muted-foreground">{client.company}</p>
           ) : null}
+          {client.notes ? (
+            <p className="mt-2 max-w-md text-sm italic text-muted-foreground">
+              &ldquo;{client.notes}&rdquo;
+            </p>
+          ) : null}
         </div>
         <div className="flex gap-2">
           <Link href={`/clients/${client.id}/edit`} className={buttonVariants({ variant: 'outline' })}>
