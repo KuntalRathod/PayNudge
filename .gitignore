@@ -28,3 +28,6 @@ npm-debug.log*
 
 # Kiro settings (contains tokens/secrets)
 .kiro/settings/
+
+# Personal interview prep notes
+INTERVIEW_PREP.md
