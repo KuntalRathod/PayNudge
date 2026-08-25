@@ -76,7 +76,7 @@ export function SignUpForm() {
 
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-slate-900">Email</Label>
           <Input
             id="email"
             name="email"
@@ -90,7 +90,7 @@ export function SignUpForm() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password" className="text-slate-900">Password</Label>
           <div className="relative">
             <Input
               id="password"
