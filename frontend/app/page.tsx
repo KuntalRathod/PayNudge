@@ -16,8 +16,6 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Accordion,
   AccordionContent,
@@ -660,9 +658,9 @@ export default function LandingPage() {
         </div>
 
         <div className="bg-slate-50">
-          <div className="container grid gap-10 border-b border-slate-200 py-10 md:grid-cols-2">
+          <div className="container border-b border-slate-200 py-10">
             {/* Logo + description */}
-            <div className="relative border border-slate-200 bg-white p-6">
+            <div className="relative mx-auto max-w-lg border border-slate-200 bg-white p-6">
               <CornerBrackets className="text-slate-300" />
               <Link href="/" className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide">
                 <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600">
@@ -674,28 +672,6 @@ export default function LandingPage() {
                 Build modern invoicing workflows with precision-crafted automation.
                 Designed for freelancers who care about getting paid on time.
               </p>
-            </div>
-
-            {/* Newsletter */}
-            <div className="relative border border-slate-200 bg-white p-6">
-              <CornerBrackets className="text-slate-300" />
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">Newsletter</p>
-              <h3 className="mt-2 text-lg font-bold">Stay in the loop</h3>
-              <p className="mt-1 text-sm text-slate-500">
-                Get product updates, invoicing tips, and early access delivered monthly.
-              </p>
-              <form className="mt-4 flex gap-2" onSubmit={(e) => e.preventDefault()}>
-                <Input
-                  type="email"
-                  placeholder="you@company.com"
-                  className="border-slate-300"
-                  required
-                />
-                <Button type="submit" className="relative bg-indigo-600 px-5 text-xs font-bold uppercase tracking-widest hover:bg-indigo-700">
-                  <CornerBrackets className="text-indigo-300" />
-                  Subscribe
-                </Button>
-              </form>
             </div>
           </div>
 
