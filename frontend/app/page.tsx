@@ -148,7 +148,7 @@ export default function LandingPage() {
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200/60" />
 
             {/* Animated badge */}
-            <span className="animate-scale-in mb-8 inline-flex items-center gap-2.5 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm shadow-indigo-100/50">
+            <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm shadow-indigo-100/50">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-600" />
@@ -158,7 +158,7 @@ export default function LandingPage() {
             </span>
 
             {/* Headline with gradient text */}
-            <h1 className="animate-slide-up max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
+            <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
               Get Paid{' '}
               <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift">
                 Without
@@ -168,13 +168,13 @@ export default function LandingPage() {
             </h1>
 
             {/* Subtitle */}
-            <p className="animate-slide-up mt-6 max-w-xl text-base leading-relaxed text-slate-500 [animation-delay:200ms] md:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-500 md:text-lg">
               Eliminate manual reminders and slow follow-ups. PayNudge automates
               the chase so you can send an invoice and get back to work.
             </p>
 
             {/* CTA buttons */}
-            <div className="animate-slide-up mt-10 flex flex-wrap items-center justify-center gap-4 [animation-delay:400ms]">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/signup"
                 className="group relative inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-indigo-600 px-8 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/30"
@@ -191,7 +191,7 @@ export default function LandingPage() {
             </div>
 
             {/* Social proof micro-strip */}
-            <div className="animate-fade-in mt-14 flex flex-col items-center gap-3 [animation-delay:600ms]">
+            <div className="mt-14 flex flex-col items-center gap-3">
               <div className="flex -space-x-2">
                 {['bg-indigo-500', 'bg-violet-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'].map((bg, i) => (
                   <div key={i} className={`h-8 w-8 rounded-full ${bg} ring-2 ring-white flex items-center justify-center text-[10px] font-bold text-white`}>
