@@ -190,19 +190,20 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Social proof micro-strip */}
-            <div className="mt-14 flex flex-col items-center gap-3">
-              <div className="flex -space-x-2">
-                {['bg-indigo-500', 'bg-violet-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'].map((bg, i) => (
-                  <div key={i} className={`h-8 w-8 rounded-full ${bg} ring-2 ring-white flex items-center justify-center text-[10px] font-bold text-white`}>
-                    {['K', 'A', 'R', 'M', 'S'][i]}
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-slate-500">
-                <span className="font-semibold text-slate-700">Loved by freelancers</span>{' '}
-                who hate chasing payments
-              </p>
+            {/* Feature micro-strip */}
+            <div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
+              <span className="inline-flex items-center gap-2">
+                <Check className="h-4 w-4 text-emerald-500" />
+                Branded invoices
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Check className="h-4 w-4 text-emerald-500" />
+                AI follow-ups
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Check className="h-4 w-4 text-emerald-500" />
+                You approve every send
+              </span>
             </div>
 
             {/* Floating decorative elements */}
