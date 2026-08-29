@@ -1,0 +1,38 @@
+# Render Blueprint for the PayNudge backend API.
+#
+# Deploys the Express API as a free web service. The API hosts the daily
+# overdue-detection cron IN-PROCESS, so the service must stay awake. Render's
+# free web services spin down after ~15 minutes of inactivity, which would stop
+# the in-process cron — so pair this with a free external pinger (e.g.
+# UptimeRobot) hitting the `/health` endpoint every ~10 minutes. See
+# backend/DEPLOY.md for the full setup.
+#
+# Secret values (API keys) are intentionally NOT stored here. They are marked
+# `sync: false` so Render prompts you to enter them in the dashboard once, and
+# never commits them to the repo.
+
+services:
+  - type: web
+    name: paynudge-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      # Secrets — set these in the Render dashboard (never committed).
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      # Your deployed frontend origin, needed so CORS allows the frontend.
+      # e.g. https://paynudge.vercel.app
+      - key: FRONTEND_URL
+        sync: false
