@@ -3,10 +3,16 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 // Load .env from the backend package root (not the monorepo root).
-// `override: true` ensures the .env file wins over any pre-existing shell
-// variables (e.g. a stale GOOGLE_API_KEY export in the user's profile).
+//
+// We do NOT use `override: true`: on a hosting platform (Render, etc.) the real
+// process environment is authoritative — most importantly `PORT`, which the
+// platform injects and the app MUST bind to. Overriding it with a local `.env`
+// value would make the server listen on the wrong port and receive no traffic.
+// A local `.env` still populates any variables the platform hasn't set, which
+// is all we need for local development. (There is normally no `.env` file in
+// production, so this load is a no-op there.)
 const __dirname = dirname(fileURLToPath(import.meta.url));
-config({ path: resolve(__dirname, '..', '.env'), override: true });
+config({ path: resolve(__dirname, '..', '.env') });
 import cors from 'cors';
 import express, { type Express, type Request, type Response } from 'express';
 import { getConfig } from './config/index.js';
@@ -118,9 +124,25 @@ function main(): void {
 }
 
 // Only start the server when run directly (not when imported by tests).
-const isDirectRun =
-  process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`;
+//
+// We compare RESOLVED filesystem paths rather than string-formatting the module
+// URL, because `import.meta.url === \`file://${process.argv[1]}\`` is fragile:
+// on some hosts (e.g. Render) the URL and argv path differ by symlinks or
+// encoding, so the naive comparison is false and `main()` never runs — the
+// server silently never starts. Converting both to real paths via
+// `fileURLToPath` and `resolve` makes the check robust across environments.
+function isDirectRun(): boolean {
+  const entry = process.argv[1];
+  if (!entry) {
+    return false;
+  }
+  try {
+    return fileURLToPath(import.meta.url) === resolve(entry);
+  } catch {
+    return false;
+  }
+}
 
-if (isDirectRun) {
+if (isDirectRun()) {
   main();
 }
