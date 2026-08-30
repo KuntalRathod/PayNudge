@@ -53,7 +53,8 @@ Deployment is a two-way handshake between Vercel and the backend/Supabase:
 ## Notes
 
 - Free-tier backends on Render sleep when idle; the **first** API call after a
-  sleep may take ~1 minute while the service wakes. The UptimeRobot pinger in
-  `backend/DEPLOY.md` prevents this by keeping the backend warm.
+  sleep may take ~1 minute while the service wakes. The external `/health`
+  pinger described in `backend/DEPLOY.md` (e.g. cron-job.org) prevents this by
+  keeping the backend warm.
 - Use a production Supabase project (separate from local dev), and apply the
   migrations in `backend/supabase/migrations/` to it before going live.

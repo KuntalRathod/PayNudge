@@ -57,17 +57,30 @@ returns `{"status":"ok"}`.
 ## 4. Keep the service awake (free) so the in-process cron fires
 
 Because a free web service sleeps after 15 minutes idle, set up a free external
-pinger to hit `/health` on a short interval:
+pinger to hit `/health` on a short interval. Any free scheduled-HTTP service
+works; pick one:
 
-1. Create a free account at **UptimeRobot** (https://uptimerobot.com) or
-   **cron-job.org**.
-2. Add an HTTP(s) monitor for `https://<your-service>.onrender.com/health`.
-3. Set the check interval to **every 5–10 minutes** (under the 15-minute
-   spin-down threshold).
+- **cron-job.org** (https://cron-job.org) — free, purpose-built for scheduled
+  HTTP requests. Create an account, add a cron job that does a `GET` on
+  `https://<your-service>.onrender.com/health`, and set the schedule to every
+  5–10 minutes.
+- **UptimeRobot** (https://uptimerobot.com) — its free plan allows HTTP(s)
+  monitors at a 5-minute interval. Add a monitor for the same `/health` URL.
+- **GitHub Actions** (no third-party signup) — a scheduled workflow in this
+  repo can `curl` the `/health` URL. Note: GitHub cron granularity is ~5 min
+  minimum and scheduled runs can be delayed under load, so a dedicated pinger
+  above is more reliable.
 
+Whichever you choose, the goal is the same: hit `/health` at least once every
+~10 minutes so the service never idles past the 15-minute spin-down threshold.
 This keeps the process warm so the daily overdue-detection cron runs reliably —
 at no cost. `/health` is intentionally excluded from rate limiting, so frequent
 pings never get throttled.
+
+> If you would rather not run an external pinger at all, the alternative is
+> Render's dedicated **Cron Job** service (~$1/month minimum) running the
+> overdue-detection logic on a schedule. That is the only non-free piece; the
+> pinger approach above keeps everything at $0.
 
 ## Notes
 
