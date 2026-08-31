@@ -4,6 +4,13 @@
 
 Create invoices, track payments, and let AI draft follow-up emails for overdue invoices — with you approving every message before it's sent.
 
+## Live Demo
+
+- **App:** https://pay-nudge-frontend.vercel.app
+- **API:** https://paynudge-api.onrender.com
+
+> The API runs on a free tier that sleeps when idle, so the first request after a period of inactivity may take a moment to wake the service.
+
 ---
 
 ## Why PayNudge?
