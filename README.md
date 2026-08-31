@@ -4,6 +4,12 @@
 
 Create invoices, track payments, and let AI draft follow-up emails for overdue invoices — with you approving every message before it's sent.
 
+[![Frontend on Vercel](https://img.shields.io/badge/frontend-Vercel-000000?logo=vercel&logoColor=white)](https://pay-nudge-frontend.vercel.app)
+[![Backend on Render](https://img.shields.io/badge/backend-Render-46E3B7?logo=render&logoColor=white)](https://paynudge-api.onrender.com/health)
+[![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=next.js&logoColor=white)](https://nextjs.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
+
 ## Live Demo
 
 - **App:** https://pay-nudge-frontend.vercel.app
