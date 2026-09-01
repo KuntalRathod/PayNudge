@@ -78,12 +78,12 @@ function BracketButton({
       className={cn(
         'relative inline-flex h-10 items-center justify-center px-6 text-xs font-bold uppercase tracking-widest transition-colors',
         variant === 'solid'
-          ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+          ? 'bg-blue-600 text-white hover:bg-blue-700'
           : 'border border-slate-300 bg-white text-slate-900 hover:bg-slate-50',
         className,
       )}
     >
-      <CornerBrackets className={variant === 'solid' ? 'text-indigo-300' : 'text-slate-400'} />
+      <CornerBrackets className={variant === 'solid' ? 'text-blue-300' : 'text-slate-400'} />
       {children}
     </Link>
   );
@@ -96,7 +96,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
         <nav className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-600">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-600">
               <Zap className="h-4 w-4 text-white" />
             </span>
             PayNudge
@@ -127,9 +127,9 @@ export default function LandingPage() {
         <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-slate-50 via-white to-white">
           {/* Animated background orbs */}
           <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-            <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-indigo-200/40 blur-3xl animate-float" />
+            <div className="absolute -left-40 -top-40 h-80 w-80 rounded-full bg-blue-200/40 blur-3xl animate-float" />
             <div className="absolute -right-32 top-20 h-72 w-72 rounded-full bg-violet-200/30 blur-3xl animate-float-slow" />
-            <div className="absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-indigo-100/50 blur-3xl animate-pulse-glow" />
+            <div className="absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-blue-100/50 blur-3xl animate-pulse-glow" />
           </div>
 
           {/* Grid dot pattern */}
@@ -148,19 +148,19 @@ export default function LandingPage() {
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200/60" />
 
             {/* Animated badge */}
-            <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-2 shadow-sm shadow-indigo-100/50">
+            <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 shadow-sm shadow-blue-100/50">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-600" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600" />
               </span>
-              <span className="text-xs font-semibold text-indigo-700">AI-powered invoice follow-ups</span>
-              <ArrowRight className="h-3 w-3 text-indigo-400" />
+              <span className="text-xs font-semibold text-blue-700">AI-powered invoice follow-ups</span>
+              <ArrowRight className="h-3 w-3 text-blue-400" />
             </span>
 
             {/* Headline with gradient text */}
             <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
               Get Paid{' '}
-              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift">
+              <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-blue-600 bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift">
                 Without
               </span>
               <br />
@@ -177,7 +177,7 @@ export default function LandingPage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/signup"
-                className="group relative inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-indigo-600 px-8 text-sm font-bold text-white shadow-lg shadow-indigo-600/25 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-600/30"
+                className="group relative inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-8 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/30"
               >
                 Start Free
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -209,7 +209,7 @@ export default function LandingPage() {
             {/* Floating decorative elements (desktop only, to keep mobile clean) */}
             <div aria-hidden="true" className="pointer-events-none absolute left-[8%] top-[18%] hidden animate-float-slow [animation-delay:0s] md:block">
               <div className="relative h-14 w-14 rotate-12 rounded-lg border border-slate-200/80 bg-white p-3 shadow-lg">
-                <Mail className="h-full w-full text-indigo-500/70" />
+                <Mail className="h-full w-full text-blue-500/70" />
               </div>
             </div>
             <div aria-hidden="true" className="pointer-events-none absolute right-[8%] top-[16%] hidden animate-float [animation-delay:1s] md:block">
@@ -224,7 +224,7 @@ export default function LandingPage() {
             </div>
             <div aria-hidden="true" className="pointer-events-none absolute bottom-[14%] right-[9%] hidden animate-float-slow [animation-delay:3s] md:block">
               <div className="relative h-12 w-12 rotate-[5deg] rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-lg">
-                <Bot className="h-full w-full text-indigo-400/70" />
+                <Bot className="h-full w-full text-blue-400/70" />
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ export default function LandingPage() {
         />
 
         {/* ─────────── DEEP BANNER ─────────── */}
-        <section className="relative overflow-hidden bg-indigo-700 py-16">
+        <section className="relative overflow-hidden bg-blue-700 py-16">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 opacity-40"
@@ -249,7 +249,7 @@ export default function LandingPage() {
             }}
           />
           <div className="container relative flex flex-col items-center gap-4 text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-200">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-200">
               Trusted by freelancers everywhere
             </p>
             <h2 className="max-w-lg text-2xl font-bold text-white sm:text-3xl">
@@ -263,12 +263,12 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-10 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-10 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 01 ] · Built different
             </p>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {METRICS.map((m) => (
-                <div key={m.label} className="border-l-2 border-indigo-600 pl-5">
+                <div key={m.label} className="border-l-2 border-blue-600 pl-5">
                   <p className="text-3xl font-extrabold tracking-tight">{m.value}</p>
                   <p className="mt-1 text-sm font-semibold text-slate-900">{m.label}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{m.desc}</p>
@@ -283,7 +283,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 02 ] · The problem
             </p>
             <div className="mx-auto max-w-3xl text-center">
@@ -335,7 +335,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 03 ] · How it works
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -347,12 +347,12 @@ export default function LandingPage() {
             <div className="mx-auto mt-16 max-w-4xl">
               <div className="grid gap-12 md:grid-cols-3">
                 <div>
-                  <div className="relative mb-5 flex h-12 w-12 items-center justify-center bg-indigo-100 text-indigo-600">
-                    <CornerBrackets className="text-indigo-300" />
+                  <div className="relative mb-5 flex h-12 w-12 items-center justify-center bg-blue-100 text-blue-600">
+                    <CornerBrackets className="text-blue-300" />
                     <FileText className="h-6 w-6" />
                   </div>
                   <div className="mb-2 flex items-center gap-2">
-                    <span className="bg-indigo-600 px-2 py-0.5 text-[10px] font-bold text-white">01</span>
+                    <span className="bg-blue-600 px-2 py-0.5 text-[10px] font-bold text-white">01</span>
                     <h3 className="font-semibold">Send an invoice</h3>
                   </div>
                   <p className="text-sm leading-relaxed text-slate-500">
@@ -397,7 +397,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 04 ] · Smart escalation
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -470,7 +470,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 05 ] · Why switch
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -486,7 +486,7 @@ export default function LandingPage() {
               <CornerBrackets className="text-slate-300" />
               <div className="grid grid-cols-2 border-b border-slate-200 bg-slate-100 text-sm font-semibold">
                 <div className="px-5 py-3.5 text-slate-500">Doing it manually</div>
-                <div className="px-5 py-3.5 text-indigo-700">With PayNudge</div>
+                <div className="px-5 py-3.5 text-blue-700">With PayNudge</div>
               </div>
               {COMPARISON.map((row, i) => (
                 <div
@@ -512,7 +512,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 06 ] · Features
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -528,7 +528,7 @@ export default function LandingPage() {
               {FEATURES.map((f) => (
                 <div key={f.title} className="relative border border-slate-200 p-6 transition-colors hover:bg-slate-50">
                   <CornerBrackets className="text-slate-300" />
-                  <f.icon className="mb-4 h-6 w-6 text-indigo-600" />
+                  <f.icon className="mb-4 h-6 w-6 text-blue-600" />
                   <h3 className="mb-2 font-semibold">{f.title}</h3>
                   <p className="text-sm leading-relaxed text-slate-500">{f.desc}</p>
                 </div>
@@ -542,7 +542,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 07 ] · Early access
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -578,7 +578,7 @@ export default function LandingPage() {
           <div className="container relative">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
+            <p className="mb-3 text-center text-xs font-bold uppercase tracking-[0.3em] text-blue-600">
               [ 08 ] · FAQ
             </p>
             <div className="mx-auto max-w-2xl text-center">
@@ -607,8 +607,8 @@ export default function LandingPage() {
           <div className="container relative flex flex-col items-center text-center">
             <div aria-hidden="true" className="absolute inset-y-0 left-0 w-px bg-slate-200" />
             <div aria-hidden="true" className="absolute inset-y-0 right-0 w-px bg-slate-200" />
-            <div className="relative mb-6 flex h-14 w-14 items-center justify-center bg-indigo-600">
-              <CornerBrackets className="text-indigo-300" />
+            <div className="relative mb-6 flex h-14 w-14 items-center justify-center bg-blue-600">
+              <CornerBrackets className="text-blue-300" />
               <Zap className="h-7 w-7 text-white" />
             </div>
             <h2 className="max-w-lg text-3xl font-bold tracking-tight sm:text-4xl">
@@ -627,7 +627,7 @@ export default function LandingPage() {
       {/* ─────────── FOOTER ─────────── */}
       <footer className="border-t border-slate-200">
         {/* Purple transition banner */}
-        <div className="relative h-6 bg-indigo-700">
+        <div className="relative h-6 bg-blue-700">
           <div
             aria-hidden="true"
             className="absolute inset-0 opacity-30"
@@ -644,7 +644,7 @@ export default function LandingPage() {
             <div className="relative mx-auto max-w-lg border border-slate-200 bg-white p-6">
               <CornerBrackets className="text-slate-300" />
               <Link href="/" className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide">
-                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600">
+                <span className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-600">
                   <Zap className="h-3.5 w-3.5 text-white" />
                 </span>
                 PayNudge
