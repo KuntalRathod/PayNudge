@@ -10,12 +10,25 @@ Create invoices, track payments, and let AI draft follow-up emails for overdue i
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
 
-## Live Demo
+## Demo
 
-- **App:** https://pay-nudge-frontend.vercel.app
+- **Live app:** https://pay-nudge-frontend.vercel.app
 - **API:** https://paynudge-api.onrender.com
 
 > The API runs on a free tier that sleeps when idle, so the first request after a period of inactivity may take a moment to wake the service.
+
+<!--
+  Demo video / GIF — replace the placeholder below with a recording of the core
+  loop once it's ready. Options:
+    • Upload an .mp4 as a GitHub issue/PR attachment and paste the URL here, or
+    • Add a GIF to `docs/demo.gif` and reference it with the Markdown image tag.
+-->
+<!-- ![PayNudge demo](docs/demo.gif) -->
+
+_Demo video coming soon._ In ~30 seconds it shows the full loop: create a client
+and invoice → send a branded PDF → the invoice goes overdue → the AI drafts a
+follow-up → you review and approve → the email is delivered → mark it paid and
+the chase stops.
 
 ---
 
