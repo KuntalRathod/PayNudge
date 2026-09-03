@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { CornerBrackets } from '@/components/landing/corner-brackets';
+import { ScrollToTop } from '@/components/landing/scroll-to-top';
 import { cn } from '@/lib/utils';
 
 const METRICS = [
@@ -677,6 +678,9 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Floating "back to top" button (appears after scrolling down). */}
+      <ScrollToTop />
     </div>
   );
 }
