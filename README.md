@@ -32,7 +32,7 @@ the chase stops.
 
 ---
 
-## Why PayNudge?
+
 
 Chasing overdue payments is awkward, time-consuming, and easy to forget. PayNudge automates the uncomfortable part:
 
