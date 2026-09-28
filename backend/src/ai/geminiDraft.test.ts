@@ -173,7 +173,7 @@ describe('generateFollowUpDraft', () => {
 });
 
 describe('GEMINI_MODEL', () => {
-  it('targets Gemini 2.5 Flash (Req 8.7)', () => {
-    expect(GEMINI_MODEL).toBe('gemini-2.5-flash');
+  it('targets Gemini 3.1 Flash Lite (Req 8.7)', () => {
+    expect(GEMINI_MODEL).toBe('gemini-3.1-flash-lite');
   });
 });

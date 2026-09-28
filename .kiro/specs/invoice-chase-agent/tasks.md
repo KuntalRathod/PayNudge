@@ -2,7 +2,7 @@
 
 ## Overview
 
-This plan implements the PayNudge as a TypeScript project: a Next.js (App Router) + Tailwind + shadcn/ui frontend, a Node.js + Express backend, Supabase Postgres + Supabase Auth with Row Level Security, Resend for email, and a LangGraph + Google Gemini 2.5 Flash worker for AI follow-up drafting.
+This plan implements the PayNudge as a TypeScript project: a Next.js (App Router) + Tailwind + shadcn/ui frontend, a Node.js + Express backend, Supabase Postgres + Supabase Auth with Row Level Security, Resend for email, and a LangGraph + Google Gemini 3.1 Flash Lite worker for AI follow-up drafting.
 
 The work is sequenced to validate correctness early: the database schema (unique constraints, partial unique index, RLS) and the pure logic layer (numbering, validation, tier mapping, days-overdue arithmetic, aggregation, ordering, follow-up state) are built and property-tested before the HTTP endpoints and background jobs that consume them. External services (Supabase Auth, Resend, Gemini) are mocked in property/unit tests; concurrency properties (1, 7, 23) run against a real transactional Postgres.
 
@@ -205,7 +205,7 @@ Property-based tests use `fast-check` with a minimum of 100 iterations and are t
     - **Validates: Requirements 10.1**
 
   - [x] 11.4 Implement Gemini draft generation and content validation
-    - Call Gemini 2.5 Flash via `@google/generative-ai` using `GOOGLE_API_KEY`; build the prompt and validate that generated content includes client name, invoice amount, invoice number, and Days_Overdue
+    - Call Gemini 3.1 Flash Lite via `@google/generative-ai` using `GOOGLE_API_KEY`; build the prompt and validate that generated content includes client name, invoice amount, invoice number, and Days_Overdue
     - _Requirements: 8.5, 8.7_
 
   - [x] 11.5 Implement LangGraph draft worker with at-most-one-pending persistence

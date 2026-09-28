@@ -9,7 +9,7 @@ import { z } from 'zod';
  * server begins accepting requests.
  *
  * Required variables (Requirement 8.7 for GOOGLE_API_KEY):
- *   - GOOGLE_API_KEY             Google Generative AI key (Gemini 2.5 Flash)
+ *   - GOOGLE_API_KEY             Google Generative AI key (Gemini 3.1 Flash Lite)
  *   - RESEND_API_KEY             Resend transactional email key
  *   - SUPABASE_URL               Supabase project URL
  *   - SUPABASE_ANON_KEY          Supabase anon/publishable key (RLS-scoped)

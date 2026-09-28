@@ -14,7 +14,7 @@
  *      missing fields. No I/O.
  *
  *   3. {@link generateFollowUpDraft} — the single I/O boundary. It calls a
- *      Gemini model (Gemini 2.5 Flash, Req 8.7) to generate content, then
+ *      Gemini model (Gemini 3.1 Flash Lite, Req 8.7) to generate content, then
  *      validates it. The model is passed in as a {@link GenerativeModelLike},
  *      so tests inject a fake and never hit the network. {@link createGeminiModel}
  *      builds the real client from `GOOGLE_API_KEY` for production use.
@@ -30,7 +30,7 @@ import type { Tier } from '../lib/escalation.js';
 import { formatAmount } from '../lib/invoiceEmail.js';
 
 /** The Gemini model used for follow-up drafting (Req 8.7). */
-export const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+export const GEMINI_MODEL = 'gemini-3.1-flash-lite' as const;
 
 /**
  * Structured input for drafting a follow-up email.
@@ -289,7 +289,7 @@ export interface GenerativeModelLike {
 }
 
 /**
- * Builds a real Gemini 2.5 Flash model client (Req 8.7) authenticated with the
+ * Builds a real Gemini 3.1 Flash Lite model client (Req 8.7) authenticated with the
  * provided `GOOGLE_API_KEY`. Production callers pass `getConfig().GOOGLE_API_KEY`.
  * Kept separate from {@link generateFollowUpDraft} so the draft logic stays
  * injectable and testable.

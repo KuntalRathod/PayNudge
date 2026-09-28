@@ -138,7 +138,7 @@ Chasing overdue payments is awkward, time-consuming, and easy to forget. PayNudg
 | Styling | Tailwind CSS, shadcn/ui, lucide-react icons |
 | Backend | Express.js (TypeScript, ESM) |
 | Database | Supabase (PostgreSQL + Auth + Storage + RLS) |
-| AI | Google Gemini (via @google/generative-ai), LangGraph state machine |
+| AI | Google Gemini 3.1 Flash Lite (via @google/generative-ai), LangGraph state machine |
 | Email | Resend (transactional delivery with timeout handling) |
 | PDF | pdfkit (in-memory generation, no filesystem) |
 | Testing | Vitest, fast-check (property-based), 380+ tests |

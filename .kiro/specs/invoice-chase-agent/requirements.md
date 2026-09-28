@@ -8,7 +8,7 @@ The core experience targets two speed goals: getting from "just finished a proje
 
 This document specifies the functional requirements for authentication, client management, invoice creation and sending, the dashboard, payment tracking, overdue detection, AI follow-up drafting, human-in-the-loop approval, the escalation cycle, and history tracking.
 
-The AI follow-up drafting is powered by Google Gemini (Gemini 2.5 Flash model) rather than a paid provider. Gemini's free tier allows 1,500 requests per day with no credit card required while delivering frontier-level quality, which comfortably covers the follow-up drafting volume for the target users. It is accessed through the `@google/generative-ai` Node.js SDK and authenticated with the `GOOGLE_API_KEY` environment variable.
+The AI follow-up drafting is powered by Google Gemini (Gemini 3.1 Flash Lite model) rather than a paid provider. Gemini's free tier allows 1,500 requests per day with no credit card required while delivering frontier-level quality, which comfortably covers the follow-up drafting volume for the target users. It is accessed through the `@google/generative-ai` Node.js SDK and authenticated with the `GOOGLE_API_KEY` environment variable.
 
 ## Glossary
 
@@ -26,7 +26,7 @@ The AI follow-up drafting is powered by Google Gemini (Gemini 2.5 Flash model) r
 - **Overdue_Detector**: The component that transitions unpaid Invoices to "overdue" status when the current date passes the due date.
 - **Follow_Up**: A reminder email associated with an overdue Invoice, drafted by the AI_Agent and requiring User approval before delivery.
 - **Follow_Up_Status**: The state of a Follow_Up, one of: "pending_approval", "approved", "sent", or "discarded".
-- **AI_Agent**: The LangGraph-plus-Gemini component that evaluates overdue duration and drafts Follow_Up email content, using the Google Gemini 2.5 Flash model via the `@google/generative-ai` Node.js SDK (authenticated with the `GOOGLE_API_KEY` environment variable).
+- **AI_Agent**: The LangGraph-plus-Gemini component that evaluates overdue duration and drafts Follow_Up email content, using the Google Gemini 3.1 Flash Lite model via the `@google/generative-ai` Node.js SDK (authenticated with the `GOOGLE_API_KEY` environment variable).
 - **Escalation_Tier**: The tone level assigned to a Follow_Up based on days overdue: "polite" (a few days), "firm" (a week or more), or "final_notice" (two weeks or more).
 - **Days_Overdue**: The whole number of calendar days between an Invoice due date and the current date, when the current date is later than the due date.
 - **Activity_Feed**: A reverse-chronological list of significant events (invoices sent, follow-ups sent, payments received).
@@ -157,7 +157,7 @@ The AI follow-up drafting is powered by Google Gemini (Gemini 2.5 Flash model) r
 4. WHEN THE AI_Agent drafts a Follow_Up for an Invoice whose Days_Overdue is at least 14, THE AI_Agent SHALL assign the Escalation_Tier "final_notice" to the drafted Follow_Up.
 5. WHEN THE AI_Agent drafts a Follow_Up, THE AI_Agent SHALL include the Client name, the invoice amount, the invoice number, and the Days_Overdue value in the drafted email content.
 6. WHEN THE AI_Agent completes a Follow_Up draft, THE AI_Agent SHALL set the Follow_Up_Status to "pending_approval".
-7. WHEN THE AI_Agent drafts a Follow_Up, THE AI_Agent SHALL generate the email content using the Google Gemini 2.5 Flash model accessed through the `@google/generative-ai` Node.js SDK and authenticated with the `GOOGLE_API_KEY` environment variable.
+7. WHEN THE AI_Agent drafts a Follow_Up, THE AI_Agent SHALL generate the email content using the Google Gemini 3.1 Flash Lite model accessed through the `@google/generative-ai` Node.js SDK and authenticated with the `GOOGLE_API_KEY` environment variable.
 8. IF THE AI_Agent fails to produce a Follow_Up draft, THEN THE System SHALL record a draft-failure message associated with the Invoice, SHALL NOT create a Follow_Up in "pending_approval" status for that Invoice, and SHALL leave the Invoice eligible for a later draft attempt.
 9. IF THE AI_Agent fails to produce a Follow_Up draft for the same Invoice on 3 consecutive attempts, THEN THE System SHALL stop further automatic draft attempts for that Invoice and SHALL record a draft-failure message associated with the Invoice.
 

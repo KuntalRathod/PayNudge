@@ -10,7 +10,7 @@ The system is composed of four cooperating tiers plus an AI agent:
 - **Backend API** (Node.js + Express on Railway) — request handling, validation, invoice numbering, state transitions, and orchestration of the AI agent and email delivery.
 - **Database + Auth** (Supabase Postgres + Supabase Auth) — durable storage with per-user Row Level Security (RLS) enforcing data isolation.
 - **Email** (Resend) — delivery of invoice emails and approved follow-up emails.
-- **AI Agent** (LangGraph JS/TS + Google Gemini 2.5 Flash via `@google/generative-ai`) — evaluates how overdue an invoice is and drafts an escalating follow-up email.
+- **AI Agent** (LangGraph JS/TS + Google Gemini 3.1 Flash Lite via `@google/generative-ai`) — evaluates how overdue an invoice is and drafts an escalating follow-up email.
 
 ### Key Design Decisions
 
@@ -29,7 +29,7 @@ The system is composed of four cooperating tiers plus an AI agent:
 - **Backend:** Node.js + Express.js, deployed on Railway.
 - **Database & Auth:** Supabase (Postgres 15+) with Supabase Auth (JWT sessions).
 - **Email:** Resend (`resend` Node SDK).
-- **AI:** LangGraph (`@langchain/langgraph`) orchestrating Google Gemini 2.5 Flash through `@google/generative-ai`, authenticated with the `GOOGLE_API_KEY` environment variable (free tier: 1,500 requests/day, no credit card).
+- **AI:** LangGraph (`@langchain/langgraph`) orchestrating Google Gemini 3.1 Flash Lite through `@google/generative-ai`, authenticated with the `GOOGLE_API_KEY` environment variable (free tier: 1,500 requests/day, no credit card).
 - **Scheduling:** Railway cron (or a Node scheduler process) invoking internal jobs.
 
 ## Architecture
@@ -52,7 +52,7 @@ graph TB
         DB[(Postgres + RLS)]
     end
     RESEND[Resend Email API]
-    GEMINI[Google Gemini 2.5 Flash]
+    GEMINI[Google Gemini 3.1 Flash Lite]
 
     User --> FE
     FE -->|JWT| AUTH
@@ -155,7 +155,7 @@ graph LR
     LOAD --> TIER[Compute Escalation_Tier<br/>from days_overdue]
     TIER --> GUARD{Draft needed?<br/>tier > latest non-discarded tier<br/>AND < 3 failed attempts}
     GUARD -- no --> SKIP((skip))
-    GUARD -- yes --> GEN[Gemini 2.5 Flash<br/>generate content]
+    GUARD -- yes --> GEN[Gemini 3.1 Flash Lite<br/>generate content]
     GEN --> VALIDATE{Content valid?<br/>includes client, amount,<br/>number, days_overdue}
     VALIDATE -- no --> FAIL[Increment failure count<br/>record draft-failure]
     VALIDATE -- yes --> PERSIST[Discard existing pending<br/>then insert pending_approval]
